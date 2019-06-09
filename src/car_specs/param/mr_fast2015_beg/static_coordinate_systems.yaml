@@ -1,0 +1,22 @@
+# list of coordinate system transforms eg. for static_transform_publisher
+
+# mit Messschieber ausgemessen!
+vehicle_to_ir_front: {
+  x: 0.183,
+  y: -0.092,
+  z: 0.06,
+  yaw: -1.570796327,
+  pitch: 0,
+  roll: 0
+}
+
+# mit Messschieber ausgemessen!
+vehicle_to_ir_back: {
+  x: 0,
+  y: -0.086,
+  z: 0.115,
+  yaw: -1.570796327,
+  pitch: 0,
+  roll: 0
+}
+

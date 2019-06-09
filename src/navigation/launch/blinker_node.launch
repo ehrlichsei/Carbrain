@@ -1,0 +1,35 @@
+<!-- KITcar launch script for preprocessing -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="start_activated" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="navigation" />
+  <arg unless="$(arg use_nodelet)" name="type" value="blinker" />
+  <arg unless="$(arg use_nodelet)" name="args" value="" />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load navigation/blinker $(arg nodelet_manager)" />
+
+  <node ns="navigation" name="blinker" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+   <rosparam file="$(find navigation)/param/blinker/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find navigation)/param/blinker/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find navigation)/param/blinker/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find navigation)/param/blinker/parking_mode.yaml" command="load" ns="parking_mode" />
+    <param name="start_activated" value="$(arg start_activated)" />
+
+    <remap from="blinker/planned_path" to="/navigation/path_planning/safe_target_path" />
+    <remap from="blinker/middle_lane_marking" to="/perception/lane_detection/road_lane_middle" />
+    <remap from="blinker/blinker_command" to="/controller_interface/blinker_command" />
+    <remap from="blinker/full_corridor" to="/navigation/path_preprocessing/full_corridor" />
+    <remap from="blinker/safe_corridor" to="/navigation/collision_detection/safe_corridor" />
+  </node>
+</launch>

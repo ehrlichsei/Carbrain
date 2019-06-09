@@ -1,0 +1,33 @@
+<!-- KITcar launch script for preprocessing -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="start_activated" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="navigation" />
+  <arg unless="$(arg use_nodelet)" name="type" value="path_preprocessing" />
+  <arg unless="$(arg use_nodelet)" name="args" value="" />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load navigation/path_preprocessing $(arg nodelet_manager)" />
+
+  <node ns="navigation" name="path_preprocessing" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+    <param name="start_activated" value="$(arg start_activated)" />
+    <remap from="path_preprocessing/auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+    <remap from="path_preprocessing/road_lane_left" to="/perception/lane_detection/road_lane_left" />
+    <remap from="path_preprocessing/road_lane_middle" to="/perception/lane_detection/road_lane_middle" />
+    <remap from="path_preprocessing/road_lane_right" to="/perception/lane_detection/road_lane_right" />
+    <remap from="path_preprocessing/perpendicular_parking_spots" to="/perception/perpendicular_parking/free_parking_spots" />
+    <remap from="path_preprocessing/lookahead_point" to="/control/lateral_controller/lookahead_point" />
+
+    <rosparam file="$(find navigation)/param/path_preprocessing/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find navigation)/param/path_preprocessing/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find navigation)/param/path_preprocessing/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find navigation)/param/path_preprocessing/parking_mode.yaml" command="load" ns="parking_mode" />
+  </node>
+</launch>
+

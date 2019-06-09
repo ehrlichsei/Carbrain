@@ -1,0 +1,9 @@
+# Default parameters for steering_controller
+
+p_steering: 1.3
+i_steering: 0.1
+d_steering: 0
+i_min: -0.5
+i_max: 0.5
+use_antiwindup: true
+

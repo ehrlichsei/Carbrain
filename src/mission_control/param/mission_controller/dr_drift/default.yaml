@@ -1,0 +1,48 @@
+# Default parameter of mission_controller
+
+# list here all modules that should be managed by the mission controller
+# (even if they should not be interrupted)
+all_modules: [
+"/control/speed_controller",
+"/control/front_steering_controller",
+"/control/back_steering_controller",
+"/controller_interface/controller_interface",
+"/monitoring/system_monitor",
+"/monitoring/fitness_monitor",
+"/monitoring/diagnostic_monitor",
+"/perception/preprocessing",
+"/perception/road_watcher",
+"/perception/lane_detection",
+"/perception/perpendicular_parking",
+"/perception/look_at",
+"/perception/qr_code_detection",
+"/control/longitudinal_controller",
+"/control/lateral_controller",
+"/navigation/path_preprocessing",
+"/navigation/path_planning",
+"/navigation/collision_detection",
+"/navigation/blinker",
+"/state_estimation/state_estimation",
+"/navigation/localization",
+"/perception/parkinglot_mapping",
+"/mission_control/free_drive_pavlov",
+"/mission_control/obstacle_pavlov",
+"/navigation/environmental_model",
+"/traffic_sign_detection/traffic_sign_detection"
+]
+
+# list all modules that should be activated right from the beginning and
+# not interrupted / de- and reactivated on mission mode changes
+persistent_modules: [
+"/monitoring/system_monitor",
+"/monitoring/diagnostic_monitor",
+"/controller_interface/controller_interface"
+]
+
+# list all modules that should be active in IDLE mode
+active_modules: [
+"/state_estimation/state_estimation",
+"/navigation/localization"
+]
+
+service_call_timeout: 1.0

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<package>
+  <name>perception</name>
+  <version>0.0.1</version>
+  <description>perception</description>
+  <maintainer email="andi@student.kit.edu">Andi</maintainer>
+  <maintainer email="seb@kitcar.de">Sebastian</maintainer>
+  <maintainer email="jo@kitcar.de">Joachim</maintainer>
+  <maintainer email="jony@kitcar.de">Jonathan</maintainer>
+  <license>TODO</license>
+  <url>https://wiki.kitcar-team.de/doku.php?id=konzept_und_umsetzung:perception:start</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>kitcar_cmake</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>state_estimation_msgs</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>perception_msgs</build_depend>
+  <build_depend>navigation_msgs</build_depend>
+  <build_depend>pixelwise_mask_generation_msgs</build_depend>
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>common</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>tf2_eigen</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>roslaunch</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>actionlib</build_depend>
+
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>state_estimation_msgs</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>perception_msgs</run_depend>
+  <run_depend>navigation_msgs</run_depend>
+  <run_depend>pixelwise_mask_generation_msgs</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>common</run_depend>
+  <run_depend>car_specs</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>tf2</run_depend>
+  <run_depend>tf2_geometry_msgs</run_depend>
+  <run_depend>tf2_ros</run_depend>
+  <run_depend>ueye_cam</run_depend>
+  <run_depend>message_filters</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>actionlib</run_depend>
+
+  <test_depend>rosbag</test_depend>
+  <test_depend>rosunit</test_depend>
+  <test_depend>rostest</test_depend>
+
+  <export>
+    <nodelet plugin="${prefix}/nodelet_plugins.xml" />
+    <rosdoc config="rosdoc.yaml" />
+  </export>
+</package>

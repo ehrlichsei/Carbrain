@@ -1,0 +1,21 @@
+<launch>
+  <node pkg="navigation" ns="navigation" type="find_parking_slot" name="find_parking_slot" output="screen">
+    <remap from="pose_estimation" to="/navigation/localization/pose_estimation" />
+    <remap from="map" to="/perception/parkinglot_mapping/map" />
+    <remap from="mission_mode" to="/controller_interface/controller_interface/mission_mode" />
+    <remap from="auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+    <remap from="infrared_sensor_back" to="/controller_interface/controller_interface/infrared_sensor_back" />
+
+    <remap from="find_slot" to="/navigation/find_parking_slot/find_slot" />
+
+    <remap from="activate_longitudinal_controller" to="/control/longitudinal_controller/activate_longitudinal_controller" />
+
+    <param name="min_slot_size" value="0.50" />
+    <param name="max_slot_size" value="0.58" />
+    <param name="path_offset" value="-0.5" />
+    <param name="v_max" value="0.8" />
+    <param name="start_ignore_distance" value="0.5" />
+    <param name="min_obstacle_len" value="0.05f" />
+    <param name="max_ramp_y_diff" value="0.02f" />
+  </node>
+</launch>

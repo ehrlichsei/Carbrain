@@ -1,0 +1,7 @@
+expected_x_rect_center: 1.15
+expected_y_rect_center: -0.03
+expected_yaw: -1.51
+expected_size_x: 0.19
+expected_size_y: 0.76
+expect_road_closure: true
+

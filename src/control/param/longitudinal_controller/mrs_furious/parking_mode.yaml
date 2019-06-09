@@ -1,0 +1,11 @@
+# parking mode specific parameter of high_level_controller
+
+# longitudinal control
+
+# curvature control
+
+v_min: 0.6
+v_max: 0.6
+a_krit: 2.5
+lookahead_v: 0.5
+

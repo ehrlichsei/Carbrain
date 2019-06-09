@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<library path="lib/liblongitudinal_controller_nodelet">
+  <class name="control/longitudinal_controller" type="NodeletBase<LongitudinalControllerNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    The longitudinal controller generates a speed command based on localization data and the given target path.
+  </description>
+  </class>
+</library>
+<library path="lib/liblateral_controller_nodelet">
+  <class name="control/lateral_controller" type="NodeletBase<LateralControllerNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    The lateral controller generates a steering command based on localization data and the given target path.
+  </description>
+  </class>
+</library>
+<library path="lib/libspeed_controller_nodelet">
+  <class name="control/speed_controller" type="NodeletBase<SpeedControllerNodeRealtime>" base_class_type="nodelet::Nodelet">
+  <description>
+    Node that controls the speed of the car. The controller has real-time constraints and directly interfaces the engine actuator.
+  </description>
+  </class>
+</library>
+<library path="lib/libsteering_controller_nodelet">
+  <class name="control/steering_controller" type="NodeletBase<SteeringControllerNodeRealtime>" base_class_type="nodelet::Nodelet">
+  <description>
+    The SteeringController is a pid controller with feed-forward for the steering angle of the car. The controller has real-time constraints and directly interfaces the steering servo actuator.
+  </description>
+  </class>
+</library>

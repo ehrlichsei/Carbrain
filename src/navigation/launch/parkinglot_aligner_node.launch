@@ -1,0 +1,25 @@
+<!-- KITcar launch script for parkinglot_aligner -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="start_activated" default="false" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="navigation" />
+  <arg unless="$(arg use_nodelet)" name="type" value="parkinglot_aligner" />
+  <arg unless="$(arg use_nodelet)" name="args" value="" />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load navigation/parkinglot_aligner $(arg nodelet_manager)" />
+
+  <node ns="navigation" name="parkinglot_aligner" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+    <remap from="/navigation/parkinglot_aligner/full_corridor" to="/navigation/path_preprocessing/full_corridor" />
+    <rosparam file="$(find navigation)/param/parkinglot_aligner/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find navigation)/param/parkinglot_aligner/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find navigation)/param/parkinglot_aligner/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find navigation)/param/parkinglot_aligner/parking_mode.yaml" command="load" ns="parking_mode" />
+    <param name="start_activated" value="$(arg start_activated)" />
+  </node>
+</launch>

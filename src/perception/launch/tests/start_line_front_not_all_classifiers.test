@@ -1,0 +1,10 @@
+<launch>
+  <include file="$(find perception)/launch/tests/start_line.test" >
+    <arg name="rosbag" value="start_line_front_2" />
+    <arg name="obstacle" value="start_line_front.yaml" />
+    <arg name="name" value="start_line_front_not_all_classifiers" />
+    <arg name="car_name" value="dr_drift" />
+    <arg name="start_in_startbox_mode" value="false"/>
+    <arg name="all_classifiers_default" value="false"/>
+  </include>
+</launch>

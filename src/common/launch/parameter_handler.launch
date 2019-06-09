@@ -1,0 +1,19 @@
+<launch>
+  <rosparam file="$(find common)/test/param/parameter_handler_test_global/default.yaml" command="load" ns="/default/global/test/name_space" />
+  <rosparam file="$(find common)/test/param/parameter_handler_test_global/parking.yaml" command="load" ns="/parking_mode/global/test/name_space" />
+
+  <group ns="common">
+    <rosparam file="$(find common)/test/param/parameter_handler_test_package/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find common)/test/param/parameter_handler_test_package/parking.yaml" command="load" ns="parking_mode" />
+  </group>
+
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find common)/rosconsole_config.conf"/>
+
+  <node name="parameterHandler" pkg="common" type="test_parameter_handler" ns="common">
+   <rosparam file="$(find common)/test/param/parameter_handler_test/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find common)/test/param/parameter_handler_test/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find common)/test/param/parameter_handler_test/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find common)/test/param/parameter_handler_test/parking_mode.yaml" command="load" ns="parking_mode" />
+  </node>
+</launch>
+

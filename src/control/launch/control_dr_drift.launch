@@ -1,0 +1,21 @@
+<!-- KITcar launch script for control -->
+<launch>
+
+  <include file="$(find control)/launch/lateral_controller_node.launch" >
+  </include>
+
+  <include file="$(find control)/launch/longitudinal_controller_node.launch" >
+  </include>
+
+  <include file="$(find control)/launch/speed_controller_node.launch" >
+  </include>
+
+  <include file="$(find control)/launch/steering_controller_node.launch" >
+    <arg name="back_steering_controller" value="false" />
+  </include>
+  <include file="$(find control)/launch/steering_controller_node.launch" >
+    <arg name="back_steering_controller" value="true" />
+  </include>
+
+</launch>
+

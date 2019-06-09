@@ -1,0 +1,40 @@
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="rosbag"/>
+  <arg name="name" default="$(arg rosbag)"/>
+  <arg name="obstacle" />
+  <arg name="timeout" default="50"/>
+  <arg name="build_folder" value="$(env KITCAR_REPO_PATH)/kitcar-ros/KITcar_brain/build"/>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 world vehicle" name="world2vehicle" />
+
+  <include file="$(find perception)/launch/preprocessing_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="input_queue_size" value="10" />
+    <arg name="output_queue_size" value="10" />
+  </include>
+
+  <include file="$(find perception)/launch/lane_detection_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="input_queue_size" value="10" />
+    <arg name="output_queue_size" value="10" />
+    <arg name="start_in_startbox_mode" value="false" />
+    <arg name="camera_parameters_prefix" value="$(arg build_folder)/perception/test/test_road_closure/$(arg rosbag)" /> 
+  </include>
+
+  <include file="$(find perception)/launch/road_watcher_node.launch">
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="debug_mode" value="false" />
+    <arg name="camera_parameters_prefix" value="$(arg build_folder)/perception/test/test_road_closure/$(arg rosbag)" /> 
+  </include>
+
+  <node pkg="common" type="rosbag_nodebase.py" name="rosbag_nodebase" output="screen" ns="common"
+	  args="play -q -d 1 $(arg build_folder)/perception/test/test_road_closure/$(arg rosbag)/$(arg rosbag).bag"/>
+
+  <test test-name="test_road_closure_$(arg name)" pkg="perception" type="test_road_closure">
+    <remap from="test_road_closure_$(arg name)/road_closures" to="/perception/road_watcher/road_closure" />
+
+    <param name="timeout" value="$(arg timeout)" />
+    <rosparam file="$(find perception)/launch/tests/$(arg obstacle)" command="load"/>
+  </test>
+</launch>

@@ -1,0 +1,28 @@
+<!-- KITcar launch script for environmental_model -->
+<launch>
+  <arg name="debug_mode" default="false" />
+  <arg name="start_activated" default="false" />
+  <arg name="launch_prefix" default=" " />
+
+  <env if="$(arg debug_mode)" name="ROSCONSOLE_CONFIG_FILE" value="$(find navigation)/rosconsole/navigation.conf"/>
+  <node name="environmental_model" ns="navigation" pkg="navigation" type="environmental_model" output="screen" launch-prefix="$(arg launch_prefix)">
+    <remap from="environmental_model/auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+    <remap from="environmental_model/full_corridor" to="/navigation/path_preprocessing/full_corridor" />
+    <remap from="environmental_model/road_lane_middle_no_passing" to="/perception/lane_detection/road_lane_middle_no_passing" />
+
+    <remap from="environmental_model/road_objects" to="/perception/road_watcher/road_objects" />
+    <remap from="look_for_obstacles" to="/perception/look_at/look_for_obstacles" />
+    <remap from="look_for_pedestrians" to="/perception/look_at/look_for_pedestrians" />
+
+    <remap from="environmental_model/infrared_sensor_front" to="/controller_interface/controller_interface/infrared_sensor_front" />
+    <remap from="environmental_model/infrared_sensor_middle" to="/controller_interface/controller_interface/ultrasonic_sensor_back" />
+    <remap from="environmental_model/infrared_sensor_back" to="/controller_interface/controller_interface/infrared_sensor_back" />
+    <remap from="environmental_model/infrared_sensor_ahead" to="/controller_interface/controller_interface/ultrasonic_sensor_front" />
+
+    <rosparam file="$(find navigation)/param/environmental_model/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find navigation)/param/environmental_model/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find navigation)/param/environmental_model/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find navigation)/param/environmental_model/parking_mode.yaml" command="load" ns="parking_mode" />
+    <param name="start_activated" value="$(arg start_activated)" />
+  </node>
+</launch>

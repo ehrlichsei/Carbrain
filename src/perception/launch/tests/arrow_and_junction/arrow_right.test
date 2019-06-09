@@ -1,0 +1,13 @@
+<launch>
+  <include file="$(find perception)/launch/tests/arrow_and_junction.test" >
+    <arg name="rosbag" value="arrow_right" />
+    <arg name="arrow_direction" value="1" />
+    <arg name="arrow_min_num_positives" value="12" />
+    <arg name="junction_min_num_positives" value="4" />
+    <arg name="junction_type" value="1" />
+    <arg name="n_images" value="30" />
+    <arg name="max_allowed_outliers" value="26"/>
+    <arg name="car_name" value="dr_drift" />
+       <arg name="minimal_score" value="0.4" />
+  </include>
+</launch>

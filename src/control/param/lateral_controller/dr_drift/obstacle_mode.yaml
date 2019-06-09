@@ -1,0 +1,5 @@
+# obstacle mode specific parameter of high_level_controller
+
+# lateral control
+k_ag: 0.02
+

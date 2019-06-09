@@ -1,0 +1,43 @@
+<!-- KITcar launch script for preprocessing -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="start_activated" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="navigation" />
+  <arg unless="$(arg use_nodelet)" name="type" value="collision_detection" />
+  <arg unless="$(arg use_nodelet)" name="args" value="" />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load navigation/collision_detection $(arg nodelet_manager)" />
+
+  <node ns="navigation" name="collision_detection" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+   <param name="start_activated" value="$(arg start_activated)" />
+   <remap from="collision_detection/full_corridor" to="/navigation/path_preprocessing/full_corridor" />
+   <remap from="collision_detection/obstacles" to="/navigation/environmental_model/nav_obstacle" />
+   <remap from="collision_detection/tracked_road_closures" to="/navigation/environmental_model/road_closure" />
+   <remap from="collision_detection/tracked_obstacles" to="/navigation/environmental_model/nav_obstacle"/>
+   <remap from="collision_detection/stopline" to="/navigation/environmental_model/junction"/>
+   <remap from="collision_detection/raw_target_path" to="/navigation/path_preprocessing/raw_target_path"/>
+   <remap from="collision_detection/no_passing_zones" to="/navigation/environmental_model/no_passing_zones" />
+   <remap from="collision_detection/crosswalks" to="/navigation/environmental_model/crosswalk" />
+   <remap from="collision_detection/arrow_markings" to="/navigation/environmental_model/arrow_marking" />
+
+   <remap from="~/default/vehicle_width" to="/default/car_specs/vehicle_width"/>
+   <remap from="~/default/distance_to_front_bumper" to="/default/car_specs/distance_to_front_bumper"/>
+   <remap from="~/default/distance_to_rear_bumper" to="/default/car_specs/distance_to_rear_bumper"/>
+
+   <rosparam file="$(find navigation)/param/collision_detection/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find navigation)/param/collision_detection/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find navigation)/param/collision_detection/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find navigation)/param/collision_detection/parking_mode.yaml" command="load" ns="parking_mode" />
+  </node>
+</launch>

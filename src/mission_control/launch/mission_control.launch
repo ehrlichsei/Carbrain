@@ -1,0 +1,15 @@
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+
+  <include file="$(find mission_control)/launch/mission_controller_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+  <include file="$(find mission_control)/launch/obstacle_pavlov_node.launch">
+     <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+  <include file="$(find mission_control)/launch/free_drive_pavlov_node.launch">
+     <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+  <!-- <include file="$(find mission_control)/launch/parking_mc_node.launch" /> -->
+</launch>

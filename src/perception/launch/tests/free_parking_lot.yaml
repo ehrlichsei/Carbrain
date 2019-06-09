@@ -1,0 +1,9 @@
+true_positive_test: true
+frames: 60
+expected_orientations: [2.15]
+expected_x_values: [-0.64]
+expected_y_values: [3.45]
+expected_distances: [0.35]
+expected_nr_of_spots: 1
+expected_detections: 2
+

@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find perception)/launch/tests/crosswalk.test" >
+    <arg name="rosbag" value="crosswalk_misclassification_speed_limit" />
+    <arg name="obstacle" value="crosswalk_misclassification_speed_limit.yaml" />
+    <arg name="name" value="crosswalk_misclassification_speed_limit" />
+    <arg name="car_name" value="dr_drift" />
+  </include>
+</launch>

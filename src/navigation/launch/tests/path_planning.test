@@ -1,0 +1,22 @@
+<!-- KITcar launch script for path planning test -->
+<launch>
+  <node pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 world vehicle" name="world2vehicle" />
+
+  <node ns="navigation" name="path_planning" pkg="navigation" type="path_planning" args="" output="screen">
+    <param name="start_activated" value="true" />
+    <remap from="path_planning/car_corridor" to="/navigation/collision_detection/car_corridor" />
+    <remap from="path_planning/safe_target_path" to="/navigation/path_planning/safe_target_path" />
+    <remap from="path_planning/reverse_out_of_parking_spot_service" to="/navigation/path_planning/reverse_out_of_parking_spot_service" />
+    <rosparam file="$(find navigation)/param/path_planning/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find navigation)/param/path_planning/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+  </node>
+
+  <!-- For Debugging
+  <include file="$(find car_specs)/launch/load_coorinate_systems.launch" />
+  <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d  $(find navigation_debug)/../../res/rviz/navigation_validation_w_camera.rviz -s $(find navigation_debug)/../../res/rviz/kitcar_logo.png"/>
+  <include file="$(find visualization)/launch/visualization_node.launch" />
+  -->
+
+  <test test-name="PathPlanningTest" pkg="navigation" type="test_path_planning">
+  </test>
+</launch>

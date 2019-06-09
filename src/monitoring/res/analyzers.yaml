@@ -1,0 +1,20 @@
+pub_rate: 1.0 # Optional
+base_path: '' # Optional, prepended to all diagnostic output
+analyzers:
+  system:
+    type: AnalyzerGroup
+    path: System
+    analyzers:
+      system_monitor:
+        type: GenericAnalyzer
+        path: SystemMonitor
+        find_and_remove_prefix: 'common/system_monitor'
+        remove_prefix: 'common system_monitor'
+  communication:
+    type: GenericAnalyzer
+    path: ControllerInterface
+    find_and_remove_prefix: 'controller_interface'
+  controller:
+    type: GenericAnalyzer
+    path: Arduino # would prefer "Controller" but agreggator mixes it up with "ControllerInterface"
+    find_and_remove_prefix: 'arduino'

@@ -1,0 +1,8 @@
+# p(x) = dx³+cx²+bx+a  - attention: coefficients in reverse order, see polynomial.h
+# p: steering_angle -> steering_output
+servo_characteristic_a: 0.54806
+servo_characteristic_b: 1.02005
+servo_characteristic_c: -0.10820
+servo_characteristic_d: 0.45973
+time_constant: 0.033 #T value of the ptd behaviour of the servo
+dead_time: 0.06 #Tt value of the ptd behaviour of the servo

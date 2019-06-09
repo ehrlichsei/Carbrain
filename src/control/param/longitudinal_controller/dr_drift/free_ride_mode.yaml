@@ -1,0 +1,6 @@
+# free ride mode specific parameter of high_level_controller
+
+# longitudinal control
+v_max_cc: 4.2
+a_krit: 4.1
+

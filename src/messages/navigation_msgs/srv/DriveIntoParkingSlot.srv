@@ -1,0 +1,10 @@
+#this is the old service call message to park parallel
+float64 parking_slot_length    # the length of the parking spot in [m]
+float64 parking_slot_width    # the width of the parking spot in [m]
+float64 distance_x            # the distance between the center of the car and the obstacle in [m]
+float64 distance_y            # the distance between the end of the parking slot and the back axle of the car in [m]
+float64 angle                 # the angle offset to the parking spot in [deg rad]. 0 means perfectly parallel. cw is positive sign.
+---
+float64 angle_offset    # the current angle error in [deg rad]. 0 means perfectly aligned
+float64 margin_front    # the remaining space between front and obstacle in [m]
+float64 margin_back     # the remaining space between back and obstacle in [m]

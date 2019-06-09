@@ -1,0 +1,36 @@
+<!-- KITcar launch script for preprocessing -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="start_activated" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="debug_mode" default="true" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="navigation" />
+  <arg unless="$(arg use_nodelet)" name="type" value="path_planning" />
+  <arg unless="$(arg use_nodelet)" name="args" value="" />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load navigation/path_planning $(arg nodelet_manager)" />
+
+  <node ns="navigation" name="path_planning" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+    <param name="start_activated" value="$(arg start_activated)" />
+    <param name="debug_mode" value="$(arg debug_mode)" />
+
+    <remap from="path_planning/car_corridor" to="/navigation/collision_detection/car_corridor" />
+    <remap from="~/default/distance_to_front_bumper" to="/default/car_specs/distance_to_front_bumper"/>
+    <remap from="~/default/distance_to_rear_bumper" to="/default/car_specs/distance_to_rear_bumper"/>
+
+   <rosparam file="$(find navigation)/param/path_planning/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find navigation)/param/path_planning/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find navigation)/param/path_planning/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find navigation)/param/path_planning/parking_mode.yaml" command="load" ns="parking_mode" />
+  </node>
+</launch>

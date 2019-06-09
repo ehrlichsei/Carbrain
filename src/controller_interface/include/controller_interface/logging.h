@@ -1,0 +1,26 @@
+#ifndef LOGGING_H
+#define LOGGING_H
+#include "common/concurrent_queue.h"
+
+enum LoggingMessage {
+    FAILED_TO_OPEN_SERIAL_PORT,
+    VALID_PROTOBUF_MESSAGE_PARSED,
+    PROTOBUF_PARSING_FAILED,
+    ASIO_WRITE_EXCEPTION,
+    ASIO_READ_EXCEPTION,
+    SERIAL_PORT_OPENED,
+    TIMEOUT,
+    MSG_VERSION_MATCH,
+    WRONG_MSG_VERSION,
+    NO_MSG_VERSION,
+    WRONG_RESPONSE_ID,
+    IMUS_AND_YAWRATE_ERROR,
+    MEASURE_SYNCHRONIZED_AGAIN,
+    COBS_DECODING_ERROR,
+    SERIAL_PORT_DOES_NOT_EXIST
+};
+
+
+using LoggingQueue = common::ConcurrentQueue<LoggingMessage, 100>;
+
+#endif // LOGGING_H

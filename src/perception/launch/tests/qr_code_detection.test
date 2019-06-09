@@ -1,0 +1,19 @@
+<launch>
+  <arg name="rosbag" default="stop" />
+  <arg name="name" default="STOP" />
+  <arg name="timeout" default="50"/>
+  <arg name="build_folder" value="$(env KITCAR_REPO_PATH)/kitcar-ros/KITcar_brain/build"/>
+
+  <include file="$(find perception)/launch/qr_code_detection_node.launch" />
+
+  <node pkg="common" type="rosbag_nodebase.py" name="rosbag_nodebase" output="screen" ns="common"
+	  args="play -q -d 1 $(arg build_folder)/perception/test/test_qr_code_detection/$(arg rosbag).bag"/>
+
+  <test test-name="test_qr_code_detection_$(arg name)" pkg="perception" type="qr_code_detection_test">
+    <remap from="test_qr_code_detection_$(arg name)/qr_codes" to="/perception/qr_code_detection/qr_codes" />
+
+    <param name="timeout" value="$(arg timeout)" />
+    <param name="name" value="$(arg name)" />
+
+  </test>
+</launch>

@@ -1,0 +1,15 @@
+<launch>
+	<arg name="build_folder" value="$(env KITCAR_REPO_PATH)/kitcar-ros/KITcar_brain/build"/>
+  <include file="$(find state_estimation)/launch/state_estimation_node.launch">
+    <arg name="car_name" value="mr_fast2015" />
+    <arg name="kalman_filter_name" value="linear_2ws" />
+    <arg name="start_activated" value="true" />
+    <arg name="integration_test_mode" value="true" />
+    <arg name="car_specs_path" value="$(arg build_folder)/state_estimation/test/test_state_estimation" />
+  </include>
+  <test test-name="StateEstimationTest" pkg="state_estimation" type="test_state_estimation">
+    <param name="rosbag_path" value="$(arg build_folder)/state_estimation/test" />
+    <param name="csv_path" value="$(env CSV_OUTPUT)/state_estimation" />
+  </test>
+</launch>
+

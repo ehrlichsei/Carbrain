@@ -1,0 +1,3 @@
+- builder: doxygen
+  name: state_estimation_msgs
+  homepage: ../state_estimation_msgs/index.html

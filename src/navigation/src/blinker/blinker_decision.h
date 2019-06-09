@@ -1,0 +1,12 @@
+#ifndef BLINKER_DECISION
+#define BLINKER_DECISION
+
+enum class BlinkerDecision {
+  BLINK_LEFT,
+  BLINK_RIGHT,
+  BLINK_RIGHT_AND_LEFT,
+  NO_DECISION,
+  ABORT_BLINKING
+};
+
+#endif  // BLINKER_DECISION

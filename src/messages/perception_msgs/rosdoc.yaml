@@ -1,0 +1,3 @@
+- builder: doxygen
+  name: perception_msgs
+  homepage: ../perception_msgs/index.html

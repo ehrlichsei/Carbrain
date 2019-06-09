@@ -1,0 +1,39 @@
+# list of coordinate system transforms eg. for static_transform_publisher
+
+vehicle_to_ir_front: {
+  x: 0.168,
+  y: -0.10,
+  z: 0.08,
+  yaw: -1.570796327,
+  pitch: 0,
+  roll: 0
+}
+
+vehicle_to_ir_middle: {
+  x: 0.105,
+  y: -0.10,
+  z: 0.08,
+  yaw: -1.570796327,
+  pitch: 0,
+  roll: 0
+}
+
+vehicle_to_ir_back: {
+  x: 0,
+  y: -0.112,
+  z: 0.08,
+  yaw: -1.570796327,
+  pitch: 0,
+  roll: 0
+}
+
+
+vehicle_to_ir_ahead: {
+  x: 0.285,
+  y: 0.0,
+  z: 0.08,
+  yaw: 0,
+  pitch: 0,
+  roll: 0
+}
+

@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find monitoring)/launch/diagnostic_aggregator.launch" />
+  <include file="$(find monitoring)/launch/system_monitor_node.launch" />
+  <include file="$(find monitoring)/launch/fitness_monitor_node.launch" />
+  <include file="$(find monitoring)/launch/diagnostic_monitor_node.launch" />
+</launch>

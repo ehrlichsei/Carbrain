@@ -1,0 +1,8 @@
+## goal: LookAtRegions, which are determining, where to look for obstacle
+LookAtRegions pedestrian_regions
+---
+## result: array of obstacles
+Pedestrians pedestrians
+---
+## feedback: current progress in processing the specified regions (percent complete)
+float32 pedestrian_progress

@@ -1,0 +1,10 @@
+<launch>
+  <include file="$(find perception)/launch/tests/speed_limit.test" >
+    <arg name="rosbag" value="30x" />
+    <!-- set to 0 to indicate that it is arbitrary -->
+    <arg name="expected_speed_limit" value="0" />
+    <arg name="expected_is_relieved" value="true" />
+    <arg name="min_number_positives" value="4" />
+    <arg name="car_name" value="dr_drift" />
+  </include>
+</launch>

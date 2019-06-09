@@ -1,0 +1,2 @@
+# Default parameter of parkinglot_aligner
+car_to_origin_distance: 1.0

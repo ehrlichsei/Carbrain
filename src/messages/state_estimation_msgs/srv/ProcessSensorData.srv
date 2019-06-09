@@ -1,0 +1,8 @@
+int32 rate
+controller_msgs/StateMeasure[] measures
+common_msgs/Float32Stamped[] front_steering_servo_commands
+common_msgs/Float32Stamped[] back_steering_servo_commands
+common_msgs/Float32Stamped[] engine_commands
+---
+State[] states
+

@@ -1,0 +1,24 @@
+<!-- KITcar launch script for system_monitor -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="monitoring" />
+  <arg unless="$(arg use_nodelet)" name="type" value="system_monitor" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load monitoring/system_monitor $(arg nodelet_manager)" />
+
+  <node name="system_monitor" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="monitoring">
+   <rosparam file="$(find monitoring)/param/system_monitor/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find monitoring)/param/system_monitor/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find monitoring)/param/system_monitor/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find monitoring)/param/system_monitor/parking_mode.yaml" command="load" ns="parking_mode" />
+   <remap from="system_monitor/emergency_stop" to="/control/speed_controller/emergency_stop" />
+   <remap from="system_monitor/camera_info" to="/camera/camera_info" />
+  </node>
+</launch>

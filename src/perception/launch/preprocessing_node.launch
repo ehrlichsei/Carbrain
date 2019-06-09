@@ -1,0 +1,41 @@
+<!-- KITcar launch script for preprocessing as a node -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+  <arg name="input_queue_size" default=" " />
+  <arg name="output_queue_size" default=" " />
+  <arg name="binarisation_mode" default=" " doc="0 no binarisation, 1 Threshold, 2+3 adaptive Threshold, >=4 Otsu"/>
+  <arg name="node_name" default="preprocessing"/>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="perception" />
+  <arg unless="$(arg use_nodelet)" name="type" value="preprocessing" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load perception/preprocessing $(arg nodelet_manager)" />
+
+  <group ns="perception"> 
+    <!-- loading package parameter -->
+    <rosparam file="$(find perception)/param/$(arg car_name)/ego_vehicle.yaml" command="load" ns="default/ego_vehicle" />
+
+    <node name="$(arg node_name)" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+     <remap from="$(arg node_name)/image_raw" to="/camera/image_raw" />
+
+     <rosparam file="$(find perception)/param/preprocessing/$(arg car_name)/default.yaml" command="load" ns="default" />
+     <rosparam file="$(find perception)/param/preprocessing/$(arg car_name)/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+     <rosparam file="$(find perception)/param/preprocessing/$(arg car_name)/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+     <rosparam file="$(find perception)/param/preprocessing/$(arg car_name)/parking_mode.yaml" command="load" ns="parking_mode" />
+     <rosparam file="$(find perception)/param/preprocessing/$(arg car_name)/region_of_interest.yaml" command="load" ns="default/roi" />
+
+     <param name="start_activated" value="$(arg start_activated)" />
+     <param if="$(eval arg('input_queue_size') != ' ')" name="default/input_queue_size" value="$(arg input_queue_size)" />
+     <param if="$(eval arg('output_queue_size') != ' ')" name="default/output_queue_size" value="$(arg output_queue_size)" />
+     <param if="$(eval arg('binarisation_mode') != ' ')" name="default/binarisation/mode" value="$(arg binarisation_mode)" />
+  </node>
+</group>
+</launch>

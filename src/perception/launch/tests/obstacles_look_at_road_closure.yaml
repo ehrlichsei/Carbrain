@@ -1,0 +1,9 @@
+frames: 1
+roi_position_x: 1.5
+roi_position_y: 0.25
+roi_orientation: -0.03
+roi_width: 0.45
+roi_height: 2.25
+expected_position_x: 1.26
+expected_position_y: 0.23
+expected_orientation: -1.53

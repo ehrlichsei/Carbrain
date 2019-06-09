@@ -1,0 +1,3 @@
+- builder: doxygen
+  name: pixelwise_mask_generation_msgs
+  homepage: ../pixelwise_mask_generation_msgs/index.html

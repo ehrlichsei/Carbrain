@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find perception)/launch/tests/road_watcher.test" >
+    <arg name="rosbag" value="object_detection_false_positive" />
+    <arg name="expect_obstacle" value="false" />
+    <arg name="car_name" value="dr_drift" />
+  </include>
+</launch>

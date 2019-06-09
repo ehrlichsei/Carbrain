@@ -1,0 +1,55 @@
+<!-- KITcar launch script for pavlov -->
+<launch>
+  <arg name="start_activated" default="false" />  
+  <arg name="current_mode" default=" " />
+  <node name="obstacle_pavlov" ns="mission_control" pkg="mission_control" type="obstacle_pavlov" output="screen" >
+    <param name="start_activated" value="$(arg start_activated)" />
+    <remap from="obstacle_pavlov/auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+    <remap from="obstacle_pavlov/car_corridor" to="/navigation/collision_detection/car_corridor" />
+    <remap from="obstacle_pavlov/set_respect_no_passing_zones" to="/navigation/collision_detection/set_respect_no_passing_zones" />
+    <remap from="obstacle_pavlov/full_corridor" to="/navigation/path_preprocessing/full_corridor" />
+    <remap from="obstacle_pavlov/stopping_completed" to="/control/longitudinal_controller/stopping_completed" />
+    <remap from="obstacle_pavlov/pose_estimation" to="/navigation/localization/pose_estimation" />
+    <remap from="obstacle_pavlov/crosswalks" to="/navigation/environmental_model/crosswalk" />
+    <remap from="obstacle_pavlov/junctions" to="/navigation/environmental_model/junction" />
+    <remap from="obstacle_pavlov/road_closures" to="/navigation/environmental_model/road_closure" />
+    <remap from="obstacle_pavlov/unidentified" to="/navigation/environmental_model/unidentified" />
+    <remap from="obstacle_pavlov/arrow_markings" to="/navigation/environmental_model/arrow_marking" />
+    <remap from="obstacle_pavlov/speed_limit_marking" to="/navigation/environmental_model/speed_limit_marking" />
+    <remap from="obstacle_pavlov/obstacles" to="/navigation/environmental_model/nav_obstacle" />
+    <remap from="obstacle_pavlov/desired_speed" to="/control/longitudinal_controller/desired_speed" />
+    <remap from="obstacle_pavlov/stop_at" to="/control/longitudinal_controller/stop_at" />
+    <remap from="obstacle_pavlov/set_drive_past_next_road_closure" to="/navigation/collision_detection/set_drive_past_next_road_closure" />
+    <remap from="obstacle_pavlov/look_at" to="/perception/road_watcher/look_at" />
+    <remap from="obstacle_pavlov/road_lane_middle" to="/perception/lane_detection/road_lane_middle" />
+    <remap from="obstacle_pavlov/no_passing_zones" to="/navigation/environmental_model/no_passing_zones" />
+    <remap from="obstacle_pavlov/activate_acc" to="/control/longitudinal_controller/activate_acc" />
+    <remap from="obstacle_pavlov/turn_at" to="/navigation/path_preprocessing/turn_at" />
+    <remap from="obstacle_pavlov/startline" to="/navigation/environmental_model/startline" />
+    <remap from="obstacle_pavlov/blinker_command" to="/controller_interface/blinker_command" />
+    <remap from="obstacle_pavlov/safe_target_path" to="/navigation/path_planning/safe_target_path" />
+
+    <remap from="obstacle_pavlov/reset_lane_detection" to="/perception/lane_detection/reset" />
+    <remap from="obstacle_pavlov/reset_environmental_model" to="/navigation/environmental_model/reset" />
+    <remap from="obstacle_pavlov/reset_path_preprocessing" to="/navigation/path_preprocessing/reset" />
+    <remap from="obstacle_pavlov/blinker_command_to_blinker_node" to="/navigation/blinker/blinker_command_pavlov" />
+
+    <remap from="obstacle_pavlov/out_of_start_box_service" to="/navigation/path_planning/out_of_start_box_service" />
+    <remap from="obstacle_pavlov/activate_qr_code_detection_service" to="/perception/qr_code_detection/activate_qr_code_detection_service" />
+
+
+    <remap from="~/default/distance_to_rear_bumper" to="/default/car_specs/distance_to_rear_bumper"/>
+    <remap from="~/default/wheelbase" to="/default/car_specs/wheelbase"/>
+    <remap from="~/default/vehicle_width" to="/default/car_specs/vehicle_width"/>
+
+    <remap from="obstacle_pavlov/turn_at" to="/navigation/path_preprocessing/turn_at" />
+
+    <remap from="obstacle_pavlov/qr_codes" to="/perception/qr_code_detection/qr_codes" />
+    
+
+    <rosparam file="$(find mission_control)/param/obstacle_pavlov/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find mission_control)/param/obstacle_pavlov/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find mission_control)/param/obstacle_pavlov/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find mission_control)/param/obstacle_pavlov/parking_mode.yaml" command="load" ns="parking_mode" />
+  </node>
+</launch>

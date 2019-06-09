@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find common)/launch/test_nodelet_load.test" >
+    <arg name="target_launch_file" value="$(find control)/launch/steering_controller_node.launch" />
+    <arg name="test_name" value="steering_controller" />
+  </include>
+</launch>

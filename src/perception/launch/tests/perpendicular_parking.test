@@ -1,0 +1,39 @@
+<launch>
+    <arg name="car_name"/>
+    <arg name="rosbag" />
+    <arg name="name" default="$(arg rosbag)" />
+    <arg name="parameterfile"/>
+    <arg name="timeout" default="50"/>
+    <arg name="build_folder" value="$(env KITCAR_REPO_PATH)/kitcar-ros/KITcar_brain/build"/>
+
+    <include file="$(find perception)/launch/preprocessing_node.launch" >
+        <arg name="car_name" value="$(arg car_name)" />
+        <arg name="input_queue_size" value="60" />
+        <arg name="output_queue_size" value="60" />
+    </include>
+
+    <include file="$(find perception)/launch/lane_detection_node.launch" >
+        <arg name="car_name" value="$(arg car_name)" />
+        <arg name="input_queue_size" value="60" />
+        <arg name="output_queue_size" value="60" />
+        <arg name="start_in_startbox_mode" value="false" />
+        <arg name="camera_parameters_prefix" value="$(arg build_folder)/perception/test/test_perpendicular_parking/$(arg rosbag)" />
+    </include>
+
+    <include file="$(find perception)/launch/perpendicular_parking_node.launch">
+        <arg name="car_name" value="$(arg car_name)" />
+        <arg name="input_queue_size" value="60" />
+        <arg name="camera_parameters_prefix" value="$(arg build_folder)/perception/test/test_perpendicular_parking/$(arg rosbag)" />
+    </include>
+
+    <node pkg="common" type="rosbag_nodebase.py" name="rosbag_nodebase" output="screen" ns="common"
+	    args=" play -q -d 1 $(arg build_folder)/perception/test/test_perpendicular_parking/$(arg rosbag)/$(arg rosbag).bag"/>
+
+    <test test-name="test_perpendicular_parking_$(arg name)" pkg="perception" type="test_perpendicular_parking">
+        <remap from="test_perpendicular_parking_$(arg name)/free_parking_spots" to="/perception/perpendicular_parking/free_parking_spots" />
+        <remap from="test_perpendicular_parking_$(arg name)/parking_lot_found" to="/perception/perpendicular_parking/parking_lot_found" />
+        <remap from="test_perpendicular_parking_$(arg name)/parking_service" to="/perception/perpendicular_parking/parking_service" />
+        <param name="timeout" value="$(arg timeout)" />
+        <rosparam command="load" file="$(find perception)/launch/tests/$(arg parameterfile)" />
+    </test>
+</launch>

@@ -1,0 +1,27 @@
+<!-- KITcar launch script for localization -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="start_activated" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="navigation" />
+  <arg unless="$(arg use_nodelet)" name="type" value="localization" />
+  <arg unless="$(arg use_nodelet)" name="args" value="" />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load navigation/localization $(arg nodelet_manager)" />
+
+  <node ns="navigation" name="localization" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+    <rosparam file="$(find navigation)/param/localization/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find navigation)/param/localization/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find navigation)/param/localization/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find navigation)/param/localization/parking_mode.yaml" command="load" ns="parking_mode" />
+    <param name="start_activated" value="$(arg start_activated)" />
+
+    <remap from="/navigation/localization/state_estimation" to="/state_estimation/state_estimation/state_estimation" />
+  </node>
+</launch>

@@ -1,0 +1,20 @@
+# parking mode specific parameter of mission_controller
+
+# list all modules that should be active in PARKING mode
+active_modules: [
+"/monitoring/fitness_monitor",
+"/monitoring/diagnostic_monitor",
+"/perception/preprocessing",
+"/perception/lane_detection",
+"/control/longitudinal_controller",
+"/control/lateral_controller",
+"/navigation/path_preprocessing",
+"/navigation/path_planning",
+"/navigation/collision_detection",
+"/state_estimation/state_estimation",
+"/navigation/localization",
+"/navigation/parkinglot_aligner",
+"/control/front_steering_controller",
+"/control/speed_controller",
+"/perception/parkinglot_mapping"
+]

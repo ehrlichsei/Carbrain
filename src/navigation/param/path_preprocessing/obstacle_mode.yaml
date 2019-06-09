@@ -1,0 +1,4 @@
+# obstacle mode specific parameter of path_preprocessing
+tracking_distance: 0.75
+path_offset: 0.2
+enable_turning: true

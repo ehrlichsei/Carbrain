@@ -1,0 +1,45 @@
+# Default parameter of high_level_controller
+
+# longitudinal control
+v_min_abs: 0.16 # slowest physically possible driving speed
+
+max_acc: 3.0
+max_dec: 4.0
+
+# curvature control
+v_min_cc: 0 # slowest speed the car drives in pure curvature control mode
+v_max_cc: 5.8
+v_max_cc_reverse: 0.8
+
+a_krit: 4.8
+lookahead_cc_t: 0.15
+stepsize: 0.01
+v_extrapolation: 4.0
+angle_krit: rad(pi/6)
+angle_krit_k: 2.0
+
+path_timeout: 0.4
+
+number_of_path_regression_points: 9
+
+# ACC
+acc: {
+  constant_time_gap: 1, # set time between the ego vehicle and the vehicle in front
+  distance_time_constant: 1, # with a smaller distance_time_constant the ego vehicle will close the constant_time_gap between he vehicles faster
+  constant_distance_gap: 0.5, # constant distance gap to ensure a minimal distance between obstacle and vehicle
+  dynamic_obstacle_velocity: 0.6, # dynamic obstacles move with 0.6 m/s
+  v_obstacle_param: True, # sets v_obstacle a constant parameter (true) with value of dynamic_obstacle_velocity, otherwise v_obstacle is calculated
+  smoothening_range: 10, # sets the number of values which are considered in the floating mean value smoothening
+  smoothening_style: 1, # 0 floating mean, 1 recursive weighted mean last and actual value, 2 median
+  v_rel_recursive_param: 0.5 # weight for old and actual value, the closer to 1 the more weight on the old value
+}
+
+# Stopping controller
+stopping_controller: {
+  stopping_radius: 0.04, # set the speed to zero in stopping_radius around the stopping point
+  stopping_completion_threshold_speed: 0.02, # assume completed stopping below this speed
+  stopping_deceleration: 2.0, # brake with this deceleration
+  lookahead_stop_t: 0.3 #tuning param to calculate the neccessary velocity for the stopping controller (reaction time /death time)
+}
+
+max_path_input_delay: 14000 #us

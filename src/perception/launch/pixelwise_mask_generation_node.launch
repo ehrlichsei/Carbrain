@@ -1,0 +1,29 @@
+<!-- KITcar launch script for pixelwise mask generation -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+  <arg name="debug_mode" default="false" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="perception" />
+  <arg unless="$(arg use_nodelet)" name="type" value="pixelwise_mask_generation" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load perception/pixelwise_mask_generation $(arg nodelet_manager)" />
+
+  <env if="$(arg debug_mode)" name="ROSCONSOLE_CONFIG_FILE" value="$(find perception)/rosconsole/perception.conf"/>
+
+  <group ns="perception"> 
+    <rosparam file="$(find perception)/param/$(arg car_name)/ego_vehicle.yaml" command="load" ns="default/ego_vehicle" />
+    <node name="pixelwise_mask_generation" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+      <remap from="pixelwise_mask_generation/image_raw" to="/camera/image_raw" />
+      <rosparam file="$(find perception)/param/pixelwise_mask_generation/default.yaml" command="load" ns="default" />
+      <param name="start_activated" value="$(arg start_activated)" />
+    </node>
+  </group>
+</launch>

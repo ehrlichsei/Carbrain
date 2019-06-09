@@ -1,0 +1,40 @@
+<!-- KITcar launch script for preprocessing -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+  <arg name="back_steering_controller" default="false" />
+  <arg name="debug_mode" default="false" />
+  <arg if="$(arg back_steering_controller)" name="controller_name" default="back_steering_controller" />
+  <arg unless="$(arg back_steering_controller)" name="controller_name" default="front_steering_controller" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="control" />
+  <arg unless="$(arg use_nodelet)" name="type" value="steering_controller" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load control/steering_controller $(arg nodelet_manager)" />
+
+  <node name="$(arg controller_name)" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="control">
+    <remap if="$(arg back_steering_controller)" from="$(arg controller_name)/steering_angle_command" to="/control/lateral_controller/steering_angle_command_back" />
+    <remap unless="$(arg back_steering_controller)" from="$(arg controller_name)/steering_angle_command" to="/control/lateral_controller/steering_angle_command_front" />
+    <remap if="$(arg debug_mode)" from="$(arg controller_name)/state_estimation" to="/state_estimation/state_estimation/state_estimation" />
+
+    <remap from="$(arg controller_name)/auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+
+    <rosparam if="$(arg back_steering_controller)" file="$(find car_specs)/param/$(arg car_name)/back_servo_characteristic.yaml" command="load" ns="default/feed_forward" />
+    <rosparam unless="$(arg back_steering_controller)" file="$(find car_specs)/param/$(arg car_name)/front_servo_characteristic.yaml" command="load" ns="default/feed_forward" />
+
+    <rosparam file="$(find control)/param/$(arg controller_name)/$(arg car_name)/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find control)/param/$(arg controller_name)/$(arg car_name)/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find control)/param/$(arg controller_name)/$(arg car_name)/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find control)/param/$(arg controller_name)/$(arg car_name)/parking_mode.yaml" command="load" ns="parking_mode" />
+    <param name="start_activated" value="$(arg start_activated)" />
+    <param name="back_steering_controller" value="$(arg back_steering_controller)" />
+    <param name="debug_mode" value="$(arg debug_mode)" />
+  </node>
+</launch>

@@ -1,0 +1,9 @@
+<launch>
+  <include file="$(find perception)/launch/tests/lane_detection.test" >
+    <arg name="rosbag" value="home_strecht_left_outer" />
+    <arg name="expected_images" value="4"/>
+    <arg name="no_passing_line_existent" value="0"/>
+    <arg name="epsilon_set_image" value="0"/>
+    <arg name="car_name" value="mr_fast2015" />
+  </include>
+</launch>

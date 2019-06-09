@@ -1,0 +1,4 @@
+wheelbase: 0.265
+mass: 2
+distance_to_front_bumper: 0.30 # in vehicle coordinate system
+distance_to_rear_bumper: 0.05  # in vehicle coordinate system

@@ -1,0 +1,32 @@
+# Default parameter of path_preprocessing
+lane_width: 0.42
+tracking_distance_polynomial: 0.6
+tracking_distance_behind: 1.0
+tracking_distance_in_front: 0.0
+corridor_simplification_max_merge_distance: 0.025
+enable_perpendicular_parking: false
+enable_turning: false
+initial_gate_distance: 0.03
+max_number_gates: 100
+distance_of_turning_point_to_right_lane_marking: 0.42
+straight_on_distance_after_turning: 0.7
+# weights for gate -- lane intersections
+weight_middle_intersection: 10.0
+weight_opposite_intersection: 1.0
+weight_own_intersection: 100.0
+use_adaptive_polynomial_degree: true
+path_polynomial_degree: 5 # used for lane approximation if polynomial degree is not adaptive
+# thresholds for adaptive polynomial degree
+threshold_use_always_degree_1: 0.025 
+threshold_use_never_degree_5: 0.5 
+threshold_relative_error_1_5: 1.2
+threshold_relative_error_3_5: 1.1 
+# angles for turning and parking
+turning_angle: rad(pi/2.0)
+perpendicular_parking_angle: rad(pi/2.0)
+turning_angle_start_offset: 0.2
+turning_angle_step_size: 0.05
+
+length_of_parking_spot: 1.5
+
+max_allowed_processing_time: 3000 #us

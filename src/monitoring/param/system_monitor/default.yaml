@@ -1,0 +1,4 @@
+# Default parameter of system_monitor
+camera_startup_timeout: 10.0
+camera_timeout_warning: 0.033
+camera_timeout_error: 0.1

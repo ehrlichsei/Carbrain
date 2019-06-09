@@ -1,0 +1,4 @@
+- builder: doxygen
+  name: common
+  homepage: https://wiki.kitcar-team.de/doku.php?id=konzept_und_umsetzung:common:start
+  exclude_symbols: 'algorithm_detail math_detail node_base_detail polynomial_detail range_detail types_detail eigen_detail basic_statistics_eigen msg_helper_detail'

@@ -1,0 +1,176 @@
+# Default parameter of perpendicular_parking
+
+max_tf_lookup_duration: 0
+
+# parameters defined by the rules
+parking_spot_depth: 0.5 # [m]
+parking_spot_width: 0.35 # [m]
+marking_width: 0.02 # [m]
+
+##### Parking Spot Scan Lines #####
+spot_scan_line_padding_x: 0.03 # [m]
+
+
+parking_lot: {  
+  ##### gradient detecion, i.e. correlation, parameters #####
+  step_reference_function_length: 9, # [pixel]
+  # length of the step function to correlate with; greater values lead to more smoothing
+  gradient_detection_thld: 3.5,
+  # threshold for the correlation to trigger a feature point finding
+
+  ##### generic parameters ####
+  image_padding: 5, # [pixel]
+
+  ##### Marking Scan Lines
+  marking_scan_step_width: 0.02, # [m]
+  marking_scan_line_width: 0.08, # [m]
+  marking_scan_line_padding_front: 0.07, # [m]
+  marking_scan_line_padding_back: 0.15, # [m]
+
+  ##### Parking Spot Scan Lines #####
+  n_scan_lines_per_spot: 19,
+  spot_scan_line_padding_y: 0.08, # [m]
+
+  #####  #####
+  spot_scan_line_obstacle_safety_margin: 0.02,# [m]
+  max_spawn_distance: 1.1,# [m]
+  marking_update_shift_factor: 0.1, # [m]
+  n_min_markings: 3,
+  max_marking_update_distance: 1.0, # [m]
+  start_pose_max_allowed_deviation: 0.2, # [m]
+
+  ##### Newton's Method (root finding) #####
+  newton_epsilon: 0.01,
+  newton_max_iterations: 20,
+
+  #### field of vision ####
+  field_of_vision: {
+    top: 90,
+    bottom: 550,
+    left: 0,
+    right: 1289
+  }
+}
+
+parking_spot: {
+  #### Determination of No Parking Areas #####
+  #nr of scanlines to skip from the start of the parking spot for determination of x-areas
+  points_to_skip_front: 3,
+  # nr of scanlines to skip from the end of the parking spot for determination of x-areas
+  ## NOTE: THIS HAS TO BE NEGATIVE IN ORDER NOT TO PRODUCE UB --> boost:: advance_end() is used
+  points_to_skip_back: -2,
+  # allowed angle deviation from expected angle
+  epsilon_x_classifier: 0.2,
+  # area covered by smallest obstacle, according to cup regulations (9/2018) [m^2]
+  smallest_obstacle_area: 0.02,
+
+  # threshold, how deep spot has to be unoccupied to be labeled free
+  free_min_depth_th: 0.25, # [m]
+
+  ransac: {
+    minimal_model_distance: 0.01,
+    minimal_consensus_set_size: 5,
+    expected_nr_of_lines: 3
+  }
+}
+
+
+##### misc #####
+perpendicular_parking: {
+  # discretization step for left lane polynom [m]
+  left_lane_poly_step: 0.02,
+  # degree of left lane polynom
+  polynomial_degree_line: 1,
+  polynomial_degree_curve: 1,
+  # length of scanlines for cluster extraction
+  scan_line_length: 0.4,
+  # parameters for step detection
+  step_detection_threshold: 7.5,
+  step_detection_ref_func_size: 9,
+  #
+  min_outlayer_dist: 0.04,
+  # minimal distance of subsequently detected clusters in order to be associated
+  min_cluster_center_dist: 0.05,
+  # minimal size if cluster related points to form a cluster
+  cluster_min_size: 6,
+  cluster_size: 9,
+  #
+  cutting_distance: 0.3,
+
+  removal_distance_front: 0.2,
+
+  min_size_lane_points: 4,
+  max_time_without_startpose: 5,
+  epsilon_poly_points: 0.1,
+  scan_line_shift: 0.03,
+  endline_reset_distance: 0.9
+}
+dbscan: {
+  core_epsilon: 0.1,
+  # min amount of core points to initiate a cluster
+  min_points_to_be_core: 4
+}
+
+parking_start_classifier: {
+### lines detection ###
+horizon : 2.2,
+### line matching ###
+max_distance_end_of_points: 0.15,
+max_angle_delta: 0.175,   # = 10 deg
+### clustering ###
+second_pca_thld: 0.04,
+max_dist_to_be_close: 0.15,
+min_nr_close_points: 2,
+### start_line_criteria ##
+required_certainty: 0.85,
+ransac: {
+  minimal_model_distance: 0.02,
+  minimal_consensus_set_size: 5,
+  expected_nr_of_lines: 4
+},
+
+minimum_startline_angle: 0.78,
+maximum_startline_angle: 1.05
+
+}
+
+parking_end_classifier: {
+dbscan: {
+  core_epsilon: 0.1,
+  min_points_to_be_core: 1
+},
+
+left_lane_poly_step: 0.02,
+scan_line_length: 0.45,
+step_detection_threshold: 3.5,
+step_detection_ref_func_size: 9,
+left_lane_scanline_padding: 0.05,
+additional_padding: 0.1,
+scanline_x_offset: 0.2,
+minimal_hypothese_belief: 0.8,
+marking_scanline_shift: 0.5,
+no_marking_scanlines: 10,
+min_cluster_size: 7,
+ransac: {
+  minimal_model_distance: 0.02,
+  minimal_consensus_set_size: 5,
+  expected_nr_of_lines: 4
+},
+
+minimum_endline_angle: -0.9,
+maximum_endline_angle: -0.42
+}
+
+endline: {
+min_free_space: 0.45,
+min_free_space_belief: 0.5
+}
+
+parking_line: {
+max_time_with_no_observation: 0.1,
+init_covariance: 1000,
+### line matching ###
+max_position_delta: 0.1, # [m]
+max_angle_delta: 0.1,   # approx 5 deg
+}
+input_queue_size: 1 #might be overwritten by launch file

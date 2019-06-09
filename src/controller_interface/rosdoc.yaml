@@ -1,0 +1,4 @@
+- builder: doxygen
+  name: controller_interface
+  homepage: https://wiki.kitcar-team.de/doku.php?id=konzept_und_umsetzung:controller_interface:start
+  exclude_patterns: '*/googletest/*'

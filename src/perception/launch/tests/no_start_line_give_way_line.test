@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find perception)/launch/tests/start_line.test" >
+    <arg name="rosbag" value="no_start_line_give_way_line" />
+    <arg name="obstacle" value="no_start_line_give_way_line.yaml" />
+    <arg name="name" value="no_start_line_give_way_line" />
+    <arg name="car_name" value="mr_fast2015" />
+  </include>
+</launch>

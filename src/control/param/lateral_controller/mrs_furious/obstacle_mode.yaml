@@ -1,0 +1,7 @@
+# obstacle mode specific parameter of high_level_controller
+
+# lateral control
+dist_k: 3.5
+lookahead_delta: 0
+
+

@@ -1,0 +1,3 @@
+- builder: doxygen
+  name: common_msgs
+  homepage: ../common_msgs/index.html

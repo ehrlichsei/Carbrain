@@ -1,0 +1,6 @@
+# free ride mode specific parameter of high_level_controller
+
+# lateral control
+dist_k: 2.54374
+k_ag: 0.04
+

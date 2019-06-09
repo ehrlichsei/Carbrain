@@ -1,0 +1,14 @@
+
+
+# point area is the region in which the first/last message point of the no_passing_line_message is classified as new start/end point
+no_passing_line_point_area_start: 0.7
+no_passing_line_point_area_end: 2.5
+no_passing_empty_msg_timeout_in_s: 1.0
+times_no_passing_line_received: 5
+length_no_passing_zone_junction: 0.3
+no_passing_length_area_of_interest: 5.0
+
+
+current_mode: -1 #current_mode is used to to choose the state_machine (obstacle- or free_drive_state_machine)
+
+unidentified_object_timeout: 0.5 #timeout in s

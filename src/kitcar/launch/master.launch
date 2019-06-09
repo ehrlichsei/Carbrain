@@ -1,0 +1,34 @@
+<!-- Running all software needed for the car -->
+<launch>
+  <!-- this is needed because traffic_sign_detection is not part of this project.
+       Note: if https://github.com/ros/ros_comm/issues/1394 gets adopted, this won't work. -->
+  <arg name="use_traffic_sign_detection" default="false" />
+
+  <include file="$(find mission_control)/launch/mission_control.launch" />
+  
+  <include file="$(find monitoring)/launch/monitoring.launch" />
+
+  <include file="$(find controller_interface)/launch/controller_interface.launch" />
+
+  <include file="$(find perception)/launch/perception.launch">
+    <arg name="use_nodelet" value="true" />
+  </include>
+
+  <include file="$(find control)/launch/control.launch" />
+  
+  <include file="$(find navigation)/launch/navigation.launch">
+    <arg name="use_nodelet" value="true" />
+  </include>
+
+  <include file="$(find state_estimation)/launch/state_estimation.launch" />
+
+  <include file="$(find car_specs)/launch/load_coorinate_systems.launch" />
+
+  <include file="$(find common_debugger)/launch/rosbag_snapshot_record.launch" />
+
+  <!--<include file="$(find visualization)/launch/cockpit_node.launch">
+    <arg name="start_activated" value="true" />
+  </include> -->
+  <include if="$(arg use_traffic_sign_detection)" file="$(find traffic_sign_detection)/launch/traffic_sign_detection.launch" />
+</launch>
+

@@ -1,0 +1,11 @@
+# Default parameter of extrinsic_calibration
+
+#Dr Drift
+chessboard: {
+  distance_x: 444.0,
+  distance_y: 325.0,
+  patternSize_width: 12,
+  patternSize_height: 5,
+  edge_Length: 60.0
+  }
+

@@ -1,0 +1,50 @@
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+
+  <include file="$(find perception)/launch/preprocessing_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="start_activated" value="true" />
+    <arg name="binarisation_mode" value="1" />
+    <arg name="node_name" value="global_threshold" />
+  </include>
+
+  <include file="$(find perception)/launch/preprocessing_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="start_activated" value="true" />
+    <arg name="binarisation_mode" value="2" />
+    <arg name="node_name" value="adaptive_threshold" />
+  </include>
+
+  <include file="$(find perception)/launch/preprocessing_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="start_activated" value="true" />
+    <arg name="binarisation_mode" value="4" />
+    <arg name="node_name" value="otsus_method" />
+  </include>
+
+  <node name="view_global_threshold" pkg="rqt_image_view" type="rqt_image_view"
+        args="/perception/global_threshold/preprocessed_image" respawn="true" />
+  <node name="view_adaptive_threshold" pkg="rqt_image_view" type="rqt_image_view"
+        args="/perception/adaptive_threshold/preprocessed_image" respawn="true" />
+  <node name="view_otsus_method" pkg="rqt_image_view" type="rqt_image_view"
+        args="/perception/otsus_method/preprocessed_image" respawn="true" />
+  <node name="view_image_raw" pkg="rqt_image_view" type="rqt_image_view"
+        args="/camera/image_raw" respawn="true"/>
+<!--
+  <node name="view_global_threshold" pkg="image_view" type="image_view">
+    <remap from="image" to="/perception/global_threshold/preprocessed_image" />
+    <param name="autosize" type="bool" value="true" />
+  </node>
+  <node name="view_adaptive_threshold" pkg="image_view" type="image_view">
+    <remap from="image" to="/perception/adaptive_threshold/preprocessed_image" />
+    <param name="autosize" type="bool" value="true" />
+  </node>
+  <node name="view_otsus_method" pkg="image_view" type="image_view">
+    <remap from="image" to="/perception/otsus_method/preprocessed_image" />
+    <param name="autosize" type="bool" value="true" />
+  </node>
+  <node name="view_image_raw" pkg="image_view" type="image_view">
+    <remap from="image" to="/camera/image_raw" />
+    <param name="autosize" type="bool" value="true" />
+  </node>-->
+</launch>

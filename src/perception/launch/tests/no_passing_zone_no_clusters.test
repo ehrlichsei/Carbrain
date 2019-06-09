@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find perception)/launch/tests/no_passing_zone.test" >
+    <arg name="rosbag" value="no_passing_zone_no_clusters" />
+    <arg name="obstacle" value="no_passing_zone_no_clusters.yaml" />
+    <arg name="name" value="no_passing_zone_no_clusters" />
+    <arg name="car_name" value="dr_drift" />
+  </include>
+</launch>

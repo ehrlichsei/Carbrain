@@ -1,0 +1,2 @@
+# obstacle mode specific parameter of path_planning
+lsq_prefered_point_weight: 6.5

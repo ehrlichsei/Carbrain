@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<library path="lib/libmission_controller_nodelet">
+  <class name="mission_control/mission_controller" type="NodeletBase<MissionControllerNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    The MissionController (de-)activates all necessary modules depending on the chosen discipline.
+  </description>
+  </class>
+</library>
+<library path="lib/libfree_drive_pavlov_nodelet">
+  <class name="pavlov/free_drive_pavlov" type="NodeletBase<FreeDrivePavlovNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Description
+  </description>
+  </class>
+</library>
+<library path="lib/libobstacle_pavlov_nodelet">
+  <class name="pavlov/obstacle_pavlov" type="NodeletBase<ObstaclePavlovNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Description
+  </description>
+  </class>
+</library>

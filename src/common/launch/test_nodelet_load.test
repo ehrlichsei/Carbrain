@@ -1,0 +1,11 @@
+<launch>
+  <arg name="target_launch_file"/>
+  <arg name="test_name"/>
+
+  <test test-name="test_nodelet_loader_$(arg test_name)" pkg="common" type="test_nodelet_loader"/>
+
+  <include file="$(arg target_launch_file)" >
+    <arg name="use_nodelet" value="true" />
+    <arg name="nodelet_manager" value="/test_nodelet_loader_$(arg test_name)" />
+  </include>
+</launch>

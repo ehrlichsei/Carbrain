@@ -1,0 +1,48 @@
+<!-- KITcar launch script for longitudinal_controller -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+  <arg name="debug_mode" default="false" />
+  <arg name="debug_gdb" default="false" />
+  <arg name="speed_visualization_vertical_scale" default="1.0" />
+  <arg name="curvature_visualization_vertical_scale" default="1.0" />
+  <arg name="speed_visualization_text_subsampling" default="10" />
+
+  <env if="$(arg debug_mode)" name="ROSCONSOLE_CONFIG_FILE" value="$(find control)/rosconsole/control.conf"/>
+  <arg if="$(arg debug_gdb)" name="launch_prefix" value="gdb -ex run --args" />
+  <arg unless="$(arg debug_gdb)" name="launch_prefix" value="" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="control" />
+  <arg unless="$(arg use_nodelet)" name="type" value="longitudinal_controller" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load control/longitudinal_controller $(arg nodelet_manager)" />
+
+  <node launch-prefix="$(arg launch_prefix)" name="longitudinal_controller" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="control">
+    <remap from="longitudinal_controller/state_estimation" to="/state_estimation/state_estimation/state_estimation" />
+    <remap from="longitudinal_controller/velocity_command" to="/control/longitudinal_controller/velocity_command" />
+    <remap from="longitudinal_controller/safe_target_path" to="/navigation/path_planning/safe_target_path" />
+    <remap from="longitudinal_controller/auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+    <remap from="longitudinal_controller/acc_update" to="/mission_control/obstacle_pavlov/acc_update" />
+
+    <rosparam file="$(find control)/param/longitudinal_controller/$(arg car_name)/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find control)/param/longitudinal_controller/$(arg car_name)/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find control)/param/longitudinal_controller/$(arg car_name)/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find control)/param/longitudinal_controller/$(arg car_name)/parking_mode.yaml" command="load" ns="parking_mode" />
+    <param name="start_activated" value="$(arg start_activated)" />
+    <param name="debug_mode" value="$(arg debug_mode)" />
+    <param name="speed_visualization_vertical_scale" value="$(arg speed_visualization_vertical_scale)" />
+    <param name="curvature_visualization_vertical_scale" value="$(arg curvature_visualization_vertical_scale)" />
+    <param name="visualization_text_subsampling" value="$(arg speed_visualization_text_subsampling)" />
+  </node>
+</launch>

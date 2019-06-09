@@ -1,0 +1,17 @@
+# Default parameter of collision_detection
+gate_safety_margin: 0.03
+vehicle_safety_rear_margin: 0.0
+vehicle_safety_front_margin: 0.05
+vehicle_safety_width_margin:  0.0
+obstacle_safety_margin: 0.04
+road_closure_safety_margin: 0.05
+left_lane_block_distance_in_front_of_obstacle: 1.0
+left_lane_block_distance_behind_obstacle: 1.5
+left_lane_block_distance_in_front_of_road_closure: 0.9
+left_lane_block_distance_behind_road_closure: 1.5
+block_distance_car_in_road_closure_area: 0.5 #distance where left lane should be blocked before road closure if an obstacle is on the left side of the road closure
+large_shrink_distance_for_warnings: 1.0
+block_left_lane: true
+avoid_obstacles: true
+
+max_allowed_processing_time: 3000 #us

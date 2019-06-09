@@ -1,0 +1,3 @@
+- builder: doxygen
+  name: lateral_controller_msgs
+  homepage: ../lateral_controller_msgs/index.html

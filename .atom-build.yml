@@ -1,0 +1,15 @@
+cmd: catkin_make -DCMAKE_BUILD_TYPE=Debug
+args:
+  - "--cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=on"
+name: build
+errorMatch:
+  - CMake Error at (?<file>[\\/0-9a-zA-Z\\._-]+):(?<line>\\d+)
+  - (?<file>\/.+):(?<line>\d+):(?<column>\d+):\s+?error:\s+(?<message>.+)
+warningMatch:
+  - CMake Error at (?<file>[\\/0-9a-zA-Z\\._-]+):(?<line>\\d+)
+  - (?<file>.+):(?<line>\d+):(?<column>\d+):\s+?warning:\s+(?<message>.+)
+
+targets:
+  perception:
+      cmd: "catkin_make --pkg perception"
+      name: "perception"

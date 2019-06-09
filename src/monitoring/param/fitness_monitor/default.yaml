@@ -1,0 +1,3 @@
+# Default parameter of system_monitor
+round_detection_type: 1
+round_detection_time: 12

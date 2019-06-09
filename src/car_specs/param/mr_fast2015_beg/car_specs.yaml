@@ -1,0 +1,8 @@
+# car geometry / dimensions
+wheelbase: 0.245
+track: 0.165
+mass: 2
+vehicle_width: 0.205
+tire_radius: 0.034
+distance_to_front_bumper: 0.30
+distance_to_rear_bumper: 0.05

@@ -1,0 +1,9 @@
+# obstacle mode specific parameter of high_level_controller
+
+# longitudinal control
+
+# curvature control
+v_min_cc: 1.0
+v_max_cc: 2.0
+a_krit: 3.0
+

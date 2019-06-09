@@ -1,0 +1,11 @@
+<launch>
+  <include file="$(find perception)/launch/tests/lane_detection.test" >
+    <arg name="rosbag" value="pedestrian_island_no_crosswalk" />
+    <arg name="expected_images" value="10" />
+    <arg name="no_passing_line_existent" value="true"/>
+    <arg name="island_existent" value="true"/>
+    <arg name="epsilon_set_image" value="3"/>
+    <arg name="car_name" value="dr_drift" />
+    <arg name="image_to_check" value="10" />
+  </include>
+</launch>

@@ -1,0 +1,2 @@
+# obstacle mode specific parameter of collision_detection
+avoid_obstacles: true

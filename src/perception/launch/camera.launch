@@ -1,0 +1,13 @@
+<!-- KITcar launch script for starting the correct camera node depending on the car_name -->
+<launch>
+  <arg name="use_nodelet" default="0" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+
+  <group ns="perception"> 
+    <include file="$(find perception)/launch/$(arg car_name)/camera_node.launch" >
+      <arg name="use_nodelet" value="$(arg use_nodelet)" />
+      <arg name="nodelet_manager" if="$(arg use_nodelet)" value="$(arg nodelet_manager)" />
+    </include>
+  </group>
+</launch>

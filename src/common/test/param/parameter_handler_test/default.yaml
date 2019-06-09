@@ -1,0 +1,15 @@
+# Default parameter of parameter_handler_test
+bool_test_param: true
+int_test_param: 1
+double_test_param: 0.3
+string_test_param: "testest"
+vector_bool_param: [false, true]
+vector_int_param: [31, -5]
+vector_double_param: [3.1, 0.5]
+vector_string_param: ["strange", "string test"]
+map_bool_param: {"first": false, "second": true}
+map_int_param: {"a": 31, "b": -5}
+map_double_param: {"pi": 3.1, "e": 2.6}
+map_string_param: {"name": "strange", "description": "string test"}
+
+to_be_deleted: 42

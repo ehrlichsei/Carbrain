@@ -1,0 +1,104 @@
+# Default parameter of lane_detection
+
+line_tracking: {
+  fitting: {
+    image_points_threshold: 10,
+    fitting_error_threshold: 1.5
+  },
+  polynomial: {
+    min_x: 0,
+    max_x: 2.0,
+    step_x: 0.01,
+    degree: 2,
+    switchdown: 1,
+    cauchy_loss: 0.1
+  },
+  lane: {
+    sep: 0.42,
+    width_diff : 0.05
+  },
+  points_filtering_enabled: true,
+  outer_lines_point_filtering: {
+    prefiltering: {
+      dist_thresh: 0.05,
+      count_thresh: 4
+    },
+    dist_thresh: 0.2,
+    count_thresh: 15,
+    count_thresh_ratio: 0.35,
+    near_field_dist: 0.0
+  },
+ middle_line_point_filtering: {
+    prefiltering: {
+      dist_thresh: 0.05,
+      count_thresh: 4
+    },
+    dist_thresh: 0.3,
+    count_thresh: 15,
+    count_thresh_ratio: 0.35,
+    near_field_dist: 0.0
+  },
+  degree_adaption: {
+    enable: true,
+    max_error: 0.015,
+    max_a: 0.1,
+  },
+  start_box_handling: {
+    max_A: 0.1,
+    max_B: 0.1,
+    max_error: 0.05,
+    starts_with: true #might be overwritten by launch file
+  },
+  midline_recognition: {
+    enable: true,
+    clustering_distance_thresh: 0.1,
+    intra_cluster_distance_thresh: 0.28,
+    region_of_interest: 1.0,
+    min_number_of_clusters: 2,
+    min_number_of_points_in_cluster: 10
+  },
+  double_middle_lane: {
+    cluster_threshold_relative: 0.04,
+    left_right_threshold: 0.02,
+    cluster_min_size: 10,
+    outline_localization_threshold: 0.04,
+    discretization_step: 0.02,
+    minimal_cluster_length: 0.25
+  },
+  eps: 0.01,
+  use_midline_recognition: true,
+  use_alway_init: false,
+  vehicle_point_equals_eps: 0.001,
+  nav_points_threshold: 10,
+  consistency_check_sampling_points: [1.0, 1.1],
+}
+
+feature_extraction: {
+  segment_boundaries: {
+    outer_left: 0.8,
+    left: 0.4,
+    middle: 0,
+    right: -0.4,
+    near: 0.5,
+    far: 1.5
+  },
+  general: {
+    sigma_factor: 1.5,
+    scan_line_step_size: 0.01,
+    scan_line_half_size: 0.1,
+    histogram_bin_size: 0.005,
+    max_width_feature_pair: 0.3,
+    max_abs_dot_hyp_norm_model: 0.5,
+    eps: 0.01
+  },
+  scan_line_creation: {
+    discretization_params: {
+      min_x: 0,
+      max_x: 2.0,
+      step_x: 0.01,
+    },
+  },
+}
+
+input_queue_size: 1 #might be overwritten by launch file
+output_queue_size: 1 #might be overwritten by launch file

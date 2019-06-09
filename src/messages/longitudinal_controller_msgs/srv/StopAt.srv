@@ -1,0 +1,5 @@
+bool stop
+uint64 id
+float64 distance
+---
+uint64 id

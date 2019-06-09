@@ -1,0 +1,31 @@
+<!-- KITcar launch script for preprocessing -->
+
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="debug_mode" default="false" />
+  <arg name="threads" default="4" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="mission_control" />
+  <arg unless="$(arg use_nodelet)" name="type" value="mission_controller" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load mission_control/mission_controller $(arg nodelet_manager)" />
+
+  <env name="OMP_NUM_THREADS" value="$(arg threads)" />
+  <env if="$(arg debug_mode)" name="ROSCONSOLE_CONFIG_FILE" value="$(find perception)/rosconsole/perception.conf"/>
+
+  <node name="mission_controller" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="mission_control">
+    <rosparam file="$(find mission_control)/param/mission_controller/$(arg car_name)/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find mission_control)/param/mission_controller/$(arg car_name)/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find mission_control)/param/mission_controller/$(arg car_name)/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find mission_control)/param/mission_controller/$(arg car_name)/parking_mode.yaml" command="load" ns="parking_mode" />
+
+    <remap from="start_parking_discipline" to="/mission_control/parking_mc/start_parking_discipline" />
+  </node>
+</launch>

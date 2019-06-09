@@ -1,0 +1,9 @@
+# parking mode specific parameter of high_level_controller
+
+# longitudinal control
+v_min: 0.6
+v_max: 1.0
+
+a_krit: 1.042
+lookahead_v: 0.5
+v_min_abs: 0.04

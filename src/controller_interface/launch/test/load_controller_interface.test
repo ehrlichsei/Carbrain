@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find common)/launch/test_nodelet_load.test" >
+    <arg name="target_launch_file" value="$(find controller_interface)/launch/controller_interface_node.launch" />
+    <arg name="test_name" value="controller_interface" />
+  </include>
+</launch>

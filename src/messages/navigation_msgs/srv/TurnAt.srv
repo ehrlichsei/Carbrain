@@ -1,0 +1,9 @@
+int32 DO_NOT_TURN = 0
+int32 LEFT = 1
+int32 RIGHT = 2
+
+Header header
+int32 id
+geometry_msgs/Pose pose
+int32 direction
+---

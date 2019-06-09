@@ -1,0 +1,9 @@
+<!-- KITcar launch script for loading camera parameters to parameter server -->
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="prefix" default="" />
+  <arg if="$(eval arg('prefix') == '')" name="path" value="$(find car_specs)/param/$(arg car_name)" />
+  <arg if="$(eval arg('prefix') != '')" name="path" value="$(arg prefix)" />
+  <rosparam file="$(arg path)/camera.yaml" command="load" ns="/default/camera" />
+</launch>
+

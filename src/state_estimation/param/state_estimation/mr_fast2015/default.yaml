@@ -1,0 +1,35 @@
+# Default parameter of state_estimation
+
+linear2ws: {
+  system_noise_speed: 0.000001,
+  system_noise_yaw_rate: 0.4,
+  system_noise_acceleration: 0.025,
+
+  measurement_noise_angular_speed_left: 1.0186, #variance measurement for constant speed: 1.0186
+  measurement_noise_angular_speed_right: 1.0186, #variance measurement for constant speed: 1.0186
+  measurement_noise_acceleration: 27,
+  measurement_noise_yaw_rate: 0.0001, #static variance measurement: 0.000033018
+
+  min_absolute_speed_for_steering_angle_calculation: 0.01
+}
+
+linear4ws_fbs: {
+  system_noise_speed_front: 0.0004,
+  system_noise_speed_back: 0.0004,
+  system_noise_yaw_rate: 0.8,
+ 
+  measurement_noise_angular_speed_front_left: 1.0186, #variance measurement for constant speed: 1.0186
+  measurement_noise_angular_speed_back_left: 1.0186, #variance measurement for constant speed: 1.0186
+  measurement_noise_angular_speed_front_right: 1.0186, #variance measurement for constant speed: 1.0186
+  measurement_noise_angular_speed_back_right: 1.0186, #variance measurement for constant speed: 1.0186
+  measurement_noise_yaw_rate: 0.00000033018, #static variance measurement: 0.000033018
+}
+
+max_speed: 10.0
+max_yaw_rate: 10.0
+max_acceleration: 40.0
+
+max_wheel_speed_measure: 500
+max_acceleration_measure: 400
+max_yaw_rate_measure: 40
+max_steering_angle_measure: 1.4

@@ -1,0 +1,2 @@
+# free ride mode specific parameter of collision_detection
+avoid_obstacles: false

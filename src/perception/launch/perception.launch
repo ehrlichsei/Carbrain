@@ -1,0 +1,65 @@
+<!-- Running the perception package (and camera driver) -->
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="use_nodelet" default="false" />
+  <arg name="nodelet_manager" default="perception_manager" /> 
+  <arg name="start_activated" default="false" />
+  <arg name="start_camera" default="true" />
+  <arg name="debug_mode" default="false" />
+
+  <node if="$(arg use_nodelet)" ns="perception" pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)"  args="manager" output="screen"/>
+
+  <include if="$(arg start_camera)" file="$(find perception)/launch/camera.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+  </include>
+
+  <include file="$(find perception)/launch/preprocessing_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" /> 
+    <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+
+  <include file="$(find perception)/launch/lane_detection_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+    <arg name="start_activated" value="$(arg start_activated)" />
+    <arg name="debug_mode" value="$(arg debug_mode)" />
+  </include>
+
+  <include file="$(find perception)/launch/road_watcher_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="debug_mode" value="$(arg debug_mode)" />
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+    <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+
+  <include file="$(find perception)/launch/perpendicular_parking_node.launch">
+    <arg name="start_activated" value="$(arg start_activated)" />
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+    <arg name="debug_mode" value="$(arg debug_mode)" />
+  </include>
+
+<include file="$(find perception)/launch/look_at_node.launch">
+  <arg name="start_activated" value="$(arg start_activated)" />
+  <arg name="car_name" value="$(arg car_name)" />
+  <arg name="use_nodelet" value="$(arg use_nodelet)" />
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+  <arg name="debug_mode" value="$(arg debug_mode)" />
+</include>
+
+<include file="$(find perception)/launch/qr_code_detection_node.launch">
+  <arg name="start_activated" value="$(arg start_activated)" />
+  <arg name="car_name" value="$(arg car_name)" />
+  <arg name="use_nodelet" value="$(arg use_nodelet)" />
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+  <arg name="debug_mode" value="$(arg debug_mode)" />
+</include>
+
+</launch>

@@ -1,0 +1,6 @@
+# Default parameter of localization
+initial_x: 0
+initial_y: 0
+initial_yaw: 0 # 90 Grad = 1.570796327 Rad
+
+max_time_between_two_mesurements: 4

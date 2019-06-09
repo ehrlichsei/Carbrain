@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find perception)/launch/tests/crosswalk.test" >
+    <arg name="rosbag" value="crosswalk_pedestrians_crossing" />
+    <arg name="obstacle" value="crosswalk_pedestrians_crossing.yaml" />
+    <arg name="name" value="crosswalk_pedestrians_crossing" />
+    <arg name="car_name" value="mr_fast2015" />
+  </include>
+</launch>

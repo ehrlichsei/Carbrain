@@ -1,0 +1,29 @@
+<launch>
+  <node pkg="navigation" ns="navigation" type="parking" name="parking" output="screen" required="true">
+    <!-- MIDDLE:   <param name="max_speed" value="0.25" />
+    <param name="max_steering_angle" value="0.436" />
+    <param name="max_turn_radius_l" value="0.68" />
+    <param name="max_turn_radius_r" value="0.8" />
+    <param name="wait_between_turns" value="500" />
+    <param name="end_angle_offset" value="0.03" /> --> <!-- 2° offset to compensate state estimation error: 0.06 -->
+    <remap from="parking/pose_estimation" to="/navigation/localization/pose_estimation" />
+    <remap from="parking/distance_sensors" to="/controller_interface/controller_interface/distance_sensors" />
+    <remap from="parking/mission_state" to="/controller_interface/controller_interface/mission_state" />
+    <remap from="parking/auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+    <remap from="parking/blinker_command" to="/controller_interface/blinker_command" />
+    <remap from="parking/velocity_command" to="/control/longitudinal_controller/velocity_command" />
+
+    <remap from="parking/set_path_offset" to="/navigation/path_planning/set_path_offset" />
+    <remap from="parking/activate_path_planner" to="/navigation/path_planning/activate_path_planner" />
+
+    <remap from="parking/activate_longitudinal_controller" to="/control/longitudinal_controller/activate_longitudinal_controller" />
+    <remap from="parking/set_vmax" to="/control/longitudinal_controller/set_vmax" />
+
+    <param name="max_speed" value="0.3" />
+    <param name="max_steering_angle" value="1" />
+    <param name="max_turn_radius_l" value="0.565" />
+    <param name="max_turn_radius_r" value="0.6225" />
+    <param name="wait_between_turns" value="500" />
+    <param name="end_angle_offset" value="0.0" />
+  </node>
+</launch>

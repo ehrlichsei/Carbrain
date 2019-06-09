@@ -1,0 +1,2 @@
+# free ride mode specific parameter of path_preprocessing
+enable_perpendicular_parking: true

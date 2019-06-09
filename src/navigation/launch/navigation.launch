@@ -1,0 +1,44 @@
+<!-- Running the navigation package -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="nodelet_manager" default="navigation_manager" />
+  <arg name="start_activated" default="false" />
+
+  <node if="$(arg use_nodelet)" ns="navigation" pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)"  args="manager" output="screen"/>
+
+  <include file="$(find navigation)/launch/path_preprocessing_node.launch">
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+    <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+
+  <include file="$(find navigation)/launch/path_planning_node.launch">
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+    <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+
+  <include file="$(find navigation)/launch/collision_detection_node.launch">
+    <arg name="use_nodelet" value="$(arg use_nodelet)" />
+    <arg if="$(arg use_nodelet)" name="nodelet_manager" value="$(arg nodelet_manager)" />
+    <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+
+  <include file="$(find navigation)/launch/blinker_node.launch">
+    <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+
+  <include file="$(find navigation)/launch/environmental_model_node.launch" >
+    <arg name="start_activated" value="$(arg start_activated)" />
+  </include>
+
+  <!-- Parking Module -->
+  <!-- <include file="$(find navigation)/launch/parking_node.launch" /> -->
+  <!-- <include file="$(find navigation)/launch/find_parking_slot_node.launch" /> -->
+  <!-- <include file="$(find navigation)/launch/parkinglot_aligner_node.launch" /> -->
+
+  <include file="$(find navigation)/launch/localization_node.launch" />
+
+  <!-- State Machine for parking -->
+  <!--  <node pkg="mission_control" type="parking_mc.py" name="parking_mc" output="screen" required="true"/>-->
+</launch>

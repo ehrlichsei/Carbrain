@@ -1,0 +1,56 @@
+<!-- KITcar launch script for state estimation -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+  <arg name="debug_mode" default="false" />
+  <arg name="debug_check_seq_numbers" default="true" />
+  <arg name="debug_message_sync_rate_multiplier" default="4.0" />
+  <arg name="debug_measurement_rate" default="120" />
+  <arg name="integration_test_mode" default="false" />
+  <arg name="kalman_filter_name" default="linear_2ws" />
+  <arg name="enable_runtime_analyzer" default="false" />
+  <arg name="car_specs_path" default="" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg if="$(eval arg('car_specs_path') != '')" name="path" value="$(arg car_specs_path)" />
+  </include>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="state_estimation" />
+  <arg unless="$(arg use_nodelet)" name="type" value="state_estimation" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load state_estimation/state_estimation $(arg nodelet_manager)" />
+
+  <node name="state_estimation" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="state_estimation">
+   <rosparam file="$(find state_estimation)/param/state_estimation/$(arg car_name)/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find state_estimation)/param/state_estimation/$(arg car_name)/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find state_estimation)/param/state_estimation/$(arg car_name)/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find state_estimation)/param/state_estimation/$(arg car_name)/parking_mode.yaml" command="load" ns="parking_mode" />
+
+   <rosparam file="$(find car_specs)/param/$(arg car_name)/front_servo_characteristic.yaml" command="load" ns="default/front_servo_characteristic" />
+   <rosparam if="$(eval car_name=='dr_drift')" file="$(find car_specs)/param/$(arg car_name)/back_servo_characteristic.yaml" command="load" ns="default/back_servo_characteristic" />
+
+   
+   <param name="start_activated" value="$(arg start_activated)" />
+   <param name="debug_mode" value="$(arg debug_mode)" />
+   <param name="debug_check_seq_numbers" value="$(arg debug_check_seq_numbers)" />
+   <param name="debug_message_sync_rate_multiplier" value="$(arg debug_message_sync_rate_multiplier)" />
+   <param name="debug_measurement_rate" value="$(arg debug_measurement_rate)" />
+   <param name="integration_test_mode" value="$(arg integration_test_mode)" />
+   <param name="default/kalman_filter_name" value="$(arg kalman_filter_name)" />
+   <param name="default/enable_runtime_analyzer" value="$(arg enable_runtime_analyzer)" />
+   
+   <remap if="$(arg debug_mode)" from="state_estimation/state_measure" to="/controller_interface/controller_interface/state_measure" />
+
+   <remap if="$(arg debug_mode)" from="state_estimation/front_steering_servo_command" to="/control/front_steering_controller/debug/servo_set_value" />
+   <remap if="$(arg debug_mode)" from="state_estimation/back_steering_servo_command" to="/control/back_steering_controller/debug/servo_set_value" />
+   <remap if="$(arg debug_mode)" from="state_estimation/engine_command" to="/control/speed_controller/debug/engine_power" />
+  </node>
+</launch>

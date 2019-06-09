@@ -1,0 +1,221 @@
+# Default parameter of road_watcher
+
+## maximum lookup duration for available tf_transformations [s]
+max_tf_lookup_duration: 0.0
+
+lane_width: 0.4      # [m] +/- lane_tolerance for feature point validation
+lane_tolerance: 0.1  # [m]
+
+##### gradient detecion, i.e. correlation, parameters #####
+gradient_detection_thld: 6
+# threshold for the correlation to trigger a feature point finding
+step_reference_function_length: 9
+# length of the step function to correlate with; greater values lead to more smoothing
+
+##### parameters used for creating scan pattern and #####
+##### parallel outer polynomials (relative to fused middle polynomial) #####
+sampling_x_start: 0.4
+sampling_x_end: 3.0
+sampling_x_end_offset: 0.35
+sampling_x_step: 0.04
+sampling_offset: 10
+sampling_offset_range: 0.3
+max_curvature_guess: 0.5
+# sampling_offset chooses which subsequent endpoint of orthogonals will
+# be used to create "grid" scan pattern
+# NOTE: this parameter has substantial impact on the ability to
+# detect honrizontal steps (orthogonal to the lane markings)!
+# If the frontal_obstacle test fails, this is a good indication,
+# that this parameter has been changed in a bad way.
+
+degree_of_polynomial: 2
+# degree of polynomial to be fitted to lane points
+trim_factor: 0.2
+# both ends of each scan line is trimmed by this factor
+
+dynamically_restrict_search_pattern: True
+# if set to true the search pattern will be limited according to how many /
+# until what depth along vehicle x we detect lane points
+min_sampling_distance: 1.0
+# min distance parallel to vehicle x direction unil which we should look
+max_sampling_distance: 2.0
+# max distance parallel to vehicle x direction unil which we should look
+
+field_of_vision: {
+  top: 90,
+  bottom: 550,
+  left: 0,
+  right: 1280
+}
+
+#parameters for scan line at region of interest
+area_of_interest_step_size: 0.05
+side_trim: 0.15
+
+dbscan: {
+  # max distance betweeen points to cluster
+  core_epsilon: 0.35,
+  # mint amount of core points to initiate a cluster
+  min_points_to_be_core: 5
+}
+
+#minimum size of clusters used for feature_extraction
+min_cluster_size: 9
+
+
+##### foot finder #####
+epsilon_newton_method: 0.01
+max_iterations_newton_method: 20
+
+
+##### image patch #####
+expand_x: 18
+expand_y: 18
+# padding added to the border of the bounding rect
+
+
+##### canny patch #####
+threshold1: 500
+threshold2: 900
+# parameters for the Canny algorithm
+
+
+##### birdsview (all values in meters) #####
+pixel_width: 0.01
+offset_before_center: 0.2
+offset_after_center: 1.0
+offset_right_of_center: 0.6
+offset_left_of_center: 0.6
+
+pedestrian_server: {
+  ## offset for extracted roi in order to compensate height of pedestrians
+  roi_offset_u: 0,
+  roi_offset_v: 80
+}
+
+pedestrian_classifier: {
+  gaussian_window: {
+    block_size: 5,
+    sigma: 2.0
+  },
+
+  binarization: {
+
+  # for adaptive threshold binarization; parameter c=-5 peforms well on carolo cup rosbags 2018
+  c: -9,
+  sigma: 0.02,
+  block_size: 81
+  },
+
+  bounding_box: {
+    width: 0.15,
+    height: 0.18
+  },
+
+  # minimum required contour size
+  cont_min_size: 20,
+
+  # minimum score
+  min_score: 0.53,
+
+  # assumed box_depth, used for base area determination
+  box_depth: 0.15
+}
+
+obstacle_classifier_new: {
+
+  foot_finder: {
+    epsilon_newton_method: 0.01,
+    max_iterations_newton_method: 20
+  },
+
+
+  roi: {
+    roi_height_in_m: 0.1,
+    area_roi_extension_in_m: 0.3,
+    min_roi_width_in_m: 0.42,
+    min_roi_length_in_m: 0.25,
+    max_roi_width_in_m: 0.8,
+    max_roi_length_in_m: 2
+  # Note: reducing roi size might lead to roi without obstacle
+  # (eg. multiple road objects are clustered together the roi might
+  # be much bigger than the max. obstacle dimensions
+  },
+
+
+  obstacle_dimension: {
+    min_obstacle_width: 0.1,
+    min_obstacle_height: 0.1,
+    min_obstacle_length: 0.1,
+    max_obstacle_width: 0.4,
+    max_obstacle_height: 0.24,
+    max_obstacle_length: 0.5,
+    #max obstacle length is not defined in the regulations but some upper value assumed here
+
+    default_obstacle_size: 0.3
+
+  },
+
+  front_model: {
+    distance_thld_pixel: 3,
+
+    ### defining yi = f(xi): with syntax: [x1, y1, x2, y2, ...]###
+    b0_edge_cnt_eval_fct: [0,0,  5,0.9,  25,1],
+    v0_edge_cnt_eval_fct: [0,0,  4,0.9,  25,1],
+    b1_edge_cnt_eval_fct: [0,0,  5,0.9,  25,1],
+    penalized_pts_eval_fct: [0,1, 3,0.9, 15,0],
+    gray_mean_eval_fct: [60,0, 90,0.9, 100,1],
+    gray_stddev_eval_fct: [0,0.5,  4,1,  15,1,  50,0.5,  80,0],
+    vertical_angle_image_eval_fct: [0.04,1,  0.1,0.8,  0.25,0],
+    ground_lines_angle_eval_fct: [0.07,1, 0.15, 0.8, 0.3,0],
+
+
+    incomplete_model_penalty: 0.9,
+
+    max_incline_angle: 0.1,
+    #angle tolerance in 2d image added ontop the assumed possible vertical angles considering the max incline angle of the track
+    vertical_angle_tolerance_image: 0.1,
+
+    #allowed tolerance of ground line angles in vehicle coordinates (assume z=0)
+    ground_line_perpendicular_angle_tolerance: 0.3,
+
+    #the 2nd griund line must show further out than this thld
+    gndline2_visible_angle_thld: 0.2,
+
+    histogram_init_value: 0.05,
+
+   ### min of(model width, height, length)
+   min_model_size_in_m: 0.092
+
+  },
+
+
+  ransac: {
+    max_iteration: 100,
+    min_data_set_size: 4,
+    min_model_score_thld: 0.25,
+    max_it_rand_L_lines_pts_select: 100,
+    max_it_2nd_gnd_model_extension: 50
+  },
+
+
+  fp_detection: {
+    # STEP DETECTION
+    step_thld: 10,
+    step_func_size: 5,
+
+    # SCAN LINE GENERATION
+    min_scan_line_length_in_pxl: 7,
+    #gives the ratio with which scan lines are placed
+    #(eg. 1 => every pixel gets a scan line; 0.5 => every second pixel..).
+    scan_line_density: 0.2,
+
+    # LANE LINE_REMOVAL
+    lane_line_removal_thld_in_m: 0.02,
+
+    #BASE HULL ESTIMATION
+    base_estimate_scan_line_spacing_in_m: 0.02,
+    base_estimate_number_of_scan_lines: 3,
+    base_estimate_scan_line_edge_overlap_in_m: 0.025
+  }
+}

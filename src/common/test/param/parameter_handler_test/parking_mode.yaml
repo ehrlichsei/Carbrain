@@ -1,0 +1,9 @@
+# parking mode specific parameter of parameter_handler_test
+vector_bool_param: [true]
+vector_int_param: [15]
+vector_double_param: [1.5]
+vector_string_param: ["parking string"]
+map_bool_param: {"first": true}
+map_int_param: {"a": 15}
+map_double_param: {"pi": 4.0}
+map_string_param: {"name": "parking string"}

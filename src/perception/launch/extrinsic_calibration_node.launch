@@ -1,0 +1,22 @@
+<!-- KITcar launch script for preprocessing -->
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+  <arg name="debug_mode" default="false" />
+
+  <include file="$(find car_specs)/launch/load_camera_parameters.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <env if="$(arg debug_mode)" name="ROSCONSOLE_CONFIG_FILE" value="$(find perception)/rosconsole/perception.conf"/>
+
+  <node name="extrinsic_calibration" ns="perception" pkg="perception" type="extrinsic_calibration" output="screen">
+   <remap from="extrinsic_calibration/image_raw" to="/camera/image_raw" />
+
+   <rosparam file="$(find perception)/param/extrinsic_calibration/$(arg car_name)/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find perception)/param/extrinsic_calibration/$(arg car_name)/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find perception)/param/extrinsic_calibration/$(arg car_name)/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find perception)/param/extrinsic_calibration/$(arg car_name)/parking_mode.yaml" command="load" ns="parking_mode" />
+   <param name="start_activated" value="$(arg start_activated)" />
+  </node>
+</launch>

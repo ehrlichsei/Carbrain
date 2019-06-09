@@ -1,0 +1,8 @@
+## goal: determines whether to search or not
+LookAtRegions obstacle_regions
+---
+## result: array of obstacles
+Obstacles obstacles
+---
+## feedback: current progress in processing the specified regions (percent complete)
+float32 obstacle_progress

@@ -1,0 +1,3 @@
+path_planning: {
+  polynomial_degree: 3
+}

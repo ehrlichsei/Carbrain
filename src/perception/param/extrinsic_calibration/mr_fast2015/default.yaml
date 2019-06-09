@@ -1,0 +1,11 @@
+# Default parameter of extrinsic_calibration
+
+#Mr Fast
+chessboard: {
+ distance_x: 452.0,
+ distance_y: 320.2,
+  patternSize_width: 12,
+  patternSize_height: 6,
+  edge_Length: 60.0
+  }
+

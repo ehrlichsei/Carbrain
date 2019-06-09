@@ -1,0 +1,27 @@
+<!-- KITcar launch script for fitness_monitor -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="start_activated" default="false" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="monitoring" />
+  <arg unless="$(arg use_nodelet)" name="type" value="fitness_monitor" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load monitoring/fitness_monitor $(arg nodelet_manager)" />
+
+  <node name="fitness_monitor" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="monitoring">
+   <rosparam file="$(find monitoring)/param/fitness_monitor/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find monitoring)/param/fitness_monitor/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find monitoring)/param/fitness_monitor/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find monitoring)/param/fitness_monitor/parking_mode.yaml" command="load" ns="parking_mode" />
+   <remap from="fitness_monitor/state_estimation" to="/state_estimation/state_estimation/state_estimation" />
+   <remap from="fitness_monitor/start_line" to="/perception/road_watcher/startline" />
+   <remap from="fitness_monitor/lateral_error" to="/control/lateral_controller/debug/distance_error" />
+
+  </node>
+</launch>

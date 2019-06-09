@@ -1,0 +1,23 @@
+# list of coordinate system transforms eg. for static_transform_publisher
+
+# mrs_furious has only one ir sensor, setting ir_front=ir_back
+# mit Messschieber ausgemessen!
+vehicle_to_ir_front: {
+  x: -0.057,
+  y: -0.088,
+  z: 0.028,
+  yaw: -1.570796327,
+  pitch: 0,
+  roll: 0
+}
+
+# mit Messschieber ausgemessen!
+vehicle_to_ir_back: {
+  x: -0.057,
+  y: -0.088,
+  z: 0.028,
+  yaw: -1.570796327,
+  pitch: 0,
+  roll: 0
+}
+

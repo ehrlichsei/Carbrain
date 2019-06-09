@@ -1,0 +1,7 @@
+# parking mode specific parameter of high_level_controller
+
+# lateral control
+dist_k: 1
+lookahead_delta: 0.0
+
+

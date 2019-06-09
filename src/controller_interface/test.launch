@@ -1,0 +1,18 @@
+<launch>
+
+        <node pkg="controller_interface" type="controller_interface" name="controller_interface" output="screen">
+          <param name="serial_port_controller" value="/dev/ttyACM0" />
+          <remap from="velocityCommand" to="/controller_interface/velocityCommand"/>
+          <remap from="blinkerCommand" to="/controller_interface/blinkerCommand"/>
+          <remap from="laserCommand" to="/controller_interface/laserCommand"/>
+          <remap from="batteryMeasure" to="/controller_interface/batteryMeasure"/>
+        </node>
+	
+        <node pkg="controller_interface" type="controller_interface_test" name="controller_interface_test" output="screen">
+          <remap from="laserCommand" to="/controller_interface/laserCommand"/>
+          <remap from="batteryMeasure" to="/controller_interface/batteryMeasure"/>
+        </node>
+
+</launch>
+
+

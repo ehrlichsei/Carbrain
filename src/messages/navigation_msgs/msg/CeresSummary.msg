@@ -1,0 +1,10 @@
+string message
+float64 initial_cost
+float64 final_cost
+int64 num_successful_steps
+int64 num_unsuccessful_steps
+float64 total_time
+int64 num_parameters
+int64 num_parameters_reduced
+int64 num_parameter_blocks
+int64 num_parameter_blocks_reduced

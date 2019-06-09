@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="mission_control" ns="mission_control" type="parking_mc.py" name="parking_mc" output="screen" required="true">
+    <remap from="/mission_control/start_parking_discipline" to="/mission_control/parking_mc/start_parking_discipline" />
+    <remap from="drive_into_parking_slot" to="/navigation/parking/drive_into_parking_slot" />
+    <remap from="find_slot" to="/navigation/find_parking_slot/find_slot" />
+  </node>
+</launch>

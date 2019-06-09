@@ -1,0 +1,22 @@
+# obstacle mode specific parameter of mission_controller
+
+# list all modules that should be active in OBSTACLE mode
+active_modules: [
+"/mission_control/obstacle_pavlov",
+"/monitoring/fitness_monitor",
+"/monitoring/diagnostic_monitor",
+"/perception/preprocessing",
+"/perception/road_watcher",
+"/perception/lane_detection",
+"/control/longitudinal_controller",
+"/control/lateral_controller",
+"/navigation/path_preprocessing",
+"/navigation/path_planning",
+"/navigation/collision_detection",
+"/navigation/blinker",
+"/state_estimation/state_estimation",
+"/navigation/localization",
+"/control/front_steering_controller",
+"/control/speed_controller",
+"/navigation/environmental_model"
+]

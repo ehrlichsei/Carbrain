@@ -1,0 +1,51 @@
+<!-- KITcar launch script for look_at -->
+<launch>
+  <arg name="start_activated" default="false" />
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="debug_mode" default="false" />
+  <arg name="camera_parameters_prefix" default=" " />
+
+  <env if="$(arg debug_mode)" name="ROSCONSOLE_CONFIG_FILE" value="$(find perception)/rosconsole/perception.conf"/>
+
+  <include file="$(find car_specs)/launch/load_camera_parameters.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg if="$(eval arg('camera_parameters_prefix') != ' ')" name="prefix" value="$(arg camera_parameters_prefix)" />
+  </include>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="perception" />
+  <arg unless="$(arg use_nodelet)" name="type" value="look_at" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+  <arg unless="$(arg use_nodelet)" name="launch_prefix" default=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load perception/look_at $(arg nodelet_manager)" />
+  <arg if="$(arg use_nodelet)" name="launch_prefix" value="" />
+
+  <group ns="perception"> 
+    <!-- loading package parameter -->
+    <rosparam file="$(find perception)/param/$(arg car_name)/ego_vehicle.yaml" command="load" ns="default/ego_vehicle" />
+
+    <node launch-prefix="$(arg launch_prefix)" name="look_at" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+      <rosparam file="$(find perception)/param/look_at/default.yaml" command="load" ns="default" />
+      <rosparam file="$(find perception)/param/look_at/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+      <rosparam file="$(find perception)/param/look_at/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+      <rosparam file="$(find perception)/param/look_at/parking_mode.yaml" command="load" ns="parking_mode" />
+      <param name="start_activated" value="$(arg start_activated)" />
+      <param name="debug_mode" value="$(arg debug_mode)" />
+
+      <remap from="look_at/image_raw" to="/camera/image_raw" />
+      <remap from="look_at/road_lane_right" to="/perception/lane_detection/road_lane_right" />
+      <remap from="look_at/road_lane_middle" to="/perception/lane_detection/road_lane_middle" />
+      <remap from="look_at/road_lane_left" to="/perception/lane_detection/road_lane_left" />
+      <remap from="look_at/road_lane_middle_no_passing" to="/perception/lane_detection/road_lane_middle_no_passing" />
+<!--      <remap from="look_at/obstacles_roi" to="/navigation/environmental_model/obstacles_roi" />-->
+<!--      <remap from="look_at/pedestrians_roi" to="/navigation/environmental_model/pedestrians_roi" />-->
+    </node>
+  </group>
+</launch>
+

@@ -1,0 +1,14 @@
+# Default parameter of free_drive_pavlov
+reverse_out_of_parking_spot_distance: 1.5 #defines how long we drive back to the road after parking
+rear_safety_margin_parking: 0.02 #distance between car and rear end of the parking spot
+velocity_search_parking_spots: 0.9
+timeout_search_parking_spot: 5.0
+waiting_time_in_parking_spot: 1.0
+number_of_park_attempts: 100 #we only park number_of_park_attempts times
+parking_spot_update_distance: 0.9
+
+
+
+#!!!!!!!!!!!!!!!!!!!!!! change variable also in obstacl_pavlov/default.yaml !!!!!!!!!!!!!!!!!!
+enable_qr_code_detection: false
+#!!!!!!!!!!!!!!!!!!!!!! change variable also in obstacl_pavlov/default.yaml !!!!!!!!!!!!!!!!!!

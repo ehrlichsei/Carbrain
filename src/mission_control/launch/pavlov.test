@@ -1,0 +1,13 @@
+<!-- KITcar launch script for pavlov -->
+<launch>
+  <node pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 world vehicle" name="world2vehicle" />
+
+  <node name="obstacle_pavlov" ns="mission_control" pkg="mission_control" type="obstacle_pavlov" output="screen">
+    <param name="default/vehicle_width" type="double" value="0.2" />
+    <rosparam file="$(find mission_control)/param/obstacle_pavlov/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find mission_control)/param/obstacle_pavlov/obstacle_mode.yaml" command="load" ns="default" />
+  </node>
+
+  <test test-name="PavlovTest" pkg="mission_control" type="test_pavlov">
+  </test>
+</launch>

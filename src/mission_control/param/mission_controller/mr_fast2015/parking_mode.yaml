@@ -1,0 +1,22 @@
+# free-ride-parking-included mode specific parameter of mission_controller
+
+# list all modules that should be active in FREE_RIDE mode
+active_modules: [
+"/mission_control/free_drive_pavlov",
+"/monitoring/fitness_monitor",
+"/monitoring/diagnostic_monitor",
+"/perception/preprocessing",
+"/perception/lane_detection",
+"/perception/road_watcher",
+"/perception/perpendicular_parking",
+"/control/longitudinal_controller",
+"/control/lateral_controller",
+"/navigation/path_preprocessing",
+"/navigation/collision_detection",
+"/navigation/path_planning",
+"/state_estimation/state_estimation",
+"/navigation/localization",
+"/control/front_steering_controller",
+"/control/speed_controller"
+]
+

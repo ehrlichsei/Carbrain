@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find perception)/launch/tests/look_at.test" >
+    <arg name="rosbag" value="obstacles_look_at_road_closure_" />
+    <arg name="obstacle" value="obstacles_look_at_road_closure.yaml" />
+    <arg name="car_name"  value="dr_drift" />
+    <arg name="action_name" value="obstacles" />
+  </include>
+</launch>

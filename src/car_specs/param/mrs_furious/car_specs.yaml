@@ -1,0 +1,10 @@
+# car geometry / dimensions
+wheelbase: 0.265
+track: 0.165
+mass: 2
+vehicle_width: 0.185
+tire_radius: 0.034
+distance_to_front_bumper: 0.34  # in vehicle coordinate system
+distance_to_rear_bumper: 0.08   # in vehicle coordinate system
+max_steering_angle_left: 0.79
+max_steering_angle_right: 0.79

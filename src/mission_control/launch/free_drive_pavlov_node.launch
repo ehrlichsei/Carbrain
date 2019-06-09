@@ -1,0 +1,45 @@
+<!-- KITcar launch script for pavlov -->
+<launch>
+  <arg name="start_activated" default="false" />
+  <node name="free_drive_pavlov" ns="mission_control" pkg="mission_control" type="free_drive_pavlov" output="screen" >
+    <param name="start_activated" value="$(arg start_activated)" />
+    <remap from="free_drive_pavlov/auto_reset" to="/controller_interface/controller_interface/auto_reset" />
+    <remap from="free_drive_pavlov/car_corridor" to="/navigation/collision_detection/car_corridor" />
+    <remap from="free_drive_pavlov/stopping_completed" to="/control/longitudinal_controller/stopping_completed" />
+    <remap from="free_drive_pavlov/pose_estimation" to="/navigation/localization/pose_estimation" />
+    <remap from="free_drive_pavlov/desired_speed" to="/control/longitudinal_controller/desired_speed" />
+    <remap from="free_drive_pavlov/stop_at" to="/control/longitudinal_controller/stop_at" />
+    <remap from="free_drive_pavlov/road_lane_middle" to="/perception/lane_detection/road_lane_middle" />
+    <remap from="free_drive_pavlov/activate_acc" to="/control/longitudinal_controller/activate_acc" />
+    <remap from="free_drive_pavlov/turn_at" to="/navigation/path_preprocessing/turn_at" />
+    <remap from="free_drive_pavlov/startline" to="/perception/road_watcher/startline" />
+    <remap from="free_drive_pavlov/parking_service" to="/perception/perpendicular_parking/parking_service" />
+    <remap from="free_drive_pavlov/free_parking_spots" to="/perception/perpendicular_parking/free_parking_spots" />
+    <remap from="free_drive_pavlov/blinker_command" to="/controller_interface/blinker_command" />
+    <remap from="free_drive_pavlov/safe_target_path" to="/navigation/path_planning/safe_target_path" />
+    <remap from="free_drive_pavlov/reverse_out_of_parking_spot_service" to="/navigation/path_planning/reverse_out_of_parking_spot_service" />
+    <remap from="free_drive_pavlov/out_of_start_box_service" to="/navigation/path_planning/out_of_start_box_service" />
+    <remap from="free_drive_pavlov/park_perpendicular_at" to="/navigation/path_preprocessing/park_perpendicular_at" />
+    <remap from="free_drive_pavlov/reset_lane_detection" to="/perception/lane_detection/reset" />
+    <remap from="free_drive_pavlov/reset_path_preprocessing" to="/navigation/path_preprocessing/reset" />
+    <remap from="free_drive_pavlov/reset_environmental_model" to="/navigation/environmental_model/reset" />
+    <remap from="free_drive_pavlov/blinker_command_to_blinker_node" to="/navigation/blinker/blinker_command_pavlov" />
+    <remap from="free_drive_pavlov/parking_lot_found" to="/perception/perpendicular_parking/parking_lot_found" />
+
+    <remap from="~/default/distance_to_rear_bumper" to="/default/car_specs/distance_to_rear_bumper"/>
+    <remap from="~/default/wheelbase" to="/default/car_specs/wheelbase"/>
+    <remap from="~/default/vehicle_width" to="/default/car_specs/vehicle_width"/>
+
+    <remap from="free_drive_pavlov/turn_at" to="/navigation/path_preprocessing/turn_at" />
+
+    <remap from="free_drive_pavlov/qr_codes" to="/perception/qr_code_detection/qr_codes" />
+    <remap from="free_drive_pavlov/activate_qr_code_detection_service" to="/perception/qr_code_detection/activate_qr_code_detection_service" />
+
+    
+
+    <rosparam file="$(find mission_control)/param/free_drive_pavlov/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find mission_control)/param/free_drive_pavlov/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find mission_control)/param/free_drive_pavlov/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find mission_control)/param/free_drive_pavlov/parking_mode.yaml" command="load" ns="parking_mode" />
+  </node>
+</launch>

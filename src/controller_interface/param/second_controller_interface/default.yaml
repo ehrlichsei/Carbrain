@@ -1,0 +1,9 @@
+# Default parameter of controller_interface
+
+
+serial_port: "/dev/ttyACM1"
+baud_rate: 921600
+serial_buffer_size: 63
+serial_read_timeout: 2000000
+arduino_boot_wait: 10000000
+write_to_shared_memory: false

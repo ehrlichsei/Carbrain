@@ -1,0 +1,37 @@
+<!-- KITcar launch script for parkinglot_mapping -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="perception" />
+  <arg unless="$(arg use_nodelet)" name="type" value="parkinglot_mapping" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load perception/parkinglot_mapping $(arg nodelet_manager)" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch">
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+  <include file="$(find car_specs)/launch/load_camera_parameters.launch">
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <node name="parkinglot_mapping" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="perception">
+    <remap from="parkinglot_mapping/infrared_sensor_front" to="/controller_interface/controller_interface/infrared_sensor_front" />
+    <remap from="parkinglot_mapping/infrared_sensor_back" to="/controller_interface/controller_interface/infrared_sensor_back" />
+    <remap from="parkinglot_mapping/preprocessed_image" to="/perception/preprocessing/preprocessed_image" />
+    <remap from="parkinglot_mapping/road_lane_right" to="/perception/lane_detection/road_lane_right" />
+
+    <rosparam file="$(find perception)/param/parkinglot_mapping/default.yaml" command="load" ns="default" />
+    <rosparam file="$(find perception)/param/parkinglot_mapping/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+    <rosparam file="$(find perception)/param/parkinglot_mapping/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+    <rosparam file="$(find perception)/param/parkinglot_mapping/parking_mode.yaml" command="load" ns="parking_mode" />
+    <param name="start_activated" value="$(arg start_activated)" />
+  </node>
+</launch>

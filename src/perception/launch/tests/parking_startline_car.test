@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find perception)/launch/tests/perpendicular_parking.test" >
+        <arg name="rosbag" value="startline_car" />
+        <arg name="parameterfile" value="parking_startline_car.yaml"/>
+        <arg name="name" value="parking_startline_car"/>
+        <arg name="car_name" value="dr_drift" />
+    </include>
+</launch>

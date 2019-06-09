@@ -1,0 +1,4 @@
+true_positive_test: false
+frames: 12
+lane_angle_upper_bound: deg(60)
+lane_angle_lower_bound: deg(45)

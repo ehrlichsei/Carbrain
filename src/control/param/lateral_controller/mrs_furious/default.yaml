@@ -1,0 +1,18 @@
+# Default parameter of high_level_controller
+
+# lateral control
+epsilon_division_by_zero: 0.01
+
+dist_k: 0
+lookahead_delta: 0
+k_ag: 0.02
+k_yaw: 0.04
+
+min_lateral_control_speed: 0.04
+reverse_driving_speed_threshold: -0.04
+
+number_of_path_regression_points: 9
+
+max_path_input_delay: 100000 #us
+
+

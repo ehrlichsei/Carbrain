@@ -1,0 +1,16 @@
+# car geometry / dimensions
+wheelbase: 0.245
+track: 0.1624
+vehicle_width: 0.204
+distance_cog_front: 0.12 # measure me!
+distance_cog_rear: 0.125 # measure me!
+moment_of_inertia: 0.072 # measure me!
+tire_stiffness_front: 0.0016 # measure me!
+tire_stiffness_rear: 0.0020 # measure me!
+mass: 4.8 # measure me!
+tire_radius: 0.0329
+#distances measured from front axle
+distance_to_front_bumper: 0.0567
+distance_to_rear_bumper: 0.288
+max_steering_angle_left: 0.416
+max_steering_angle_right: 0.4

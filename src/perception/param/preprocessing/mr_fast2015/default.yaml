@@ -1,0 +1,14 @@
+# Default parameter of preprocessing
+binarisation: {
+  mode: 2, #0 no binarisation, 1 Threshold, 2+3 adaptive Threshold, >=4 Otsu
+  sigma: 0.4,
+  blocksize: 45,
+  c: 25
+}
+
+median_blur: {
+  median_blur_size: 3 #has to be odd, zero to deactivate median blur
+}
+
+input_queue_size: 1 #might be overwritten by launch file
+output_queue_size: 1 #might be overwritten by launch file

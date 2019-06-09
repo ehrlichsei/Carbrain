@@ -1,0 +1,19 @@
+mask_mode: 1
+
+trapezoid_mask: {
+  bottom_left_loc_x: 213,
+  bottom_left_loc_y: 560,
+  top_left_loc_x: 582,
+  top_left_loc_y: 169,
+  top_right_loc_x: 728,
+  top_right_loc_y: 160,
+  bottom_right_loc_x: 974,
+  bottom_right_loc_y: 560
+}
+
+pixelwise_mask: {
+    standard_mask_directory: "~/pixelwise_mask_files/",
+    standard_mask_name: "car_mask.pbm",
+    modified_mask_path: "~/pixelwise_mask_files/car_mask.pbm"
+}
+

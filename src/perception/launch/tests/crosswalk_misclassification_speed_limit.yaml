@@ -1,0 +1,6 @@
+expected_x_pose: 0
+expected_y_pose: 0
+expected_yaw:  0
+pedestrian_state:  0
+nr_of_frames: 1
+true_positive_test: false

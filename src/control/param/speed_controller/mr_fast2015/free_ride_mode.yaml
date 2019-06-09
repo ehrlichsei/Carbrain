@@ -1,0 +1,12 @@
+# free ride mode specific parameter of speed_controller
+p_speed: 1.0
+i_speed: 1.3
+d_speed: 0
+
+i_max: 0.8
+i_min: -2.0
+
+brake_output_scaling: 1.4
+braking_threshold: 0.2
+
+use_brake: true

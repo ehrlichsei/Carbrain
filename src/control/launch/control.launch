@@ -1,0 +1,15 @@
+<!-- KITcar launch script for control -->
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch">
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <include if="$(eval car_name.startswith('mr_fast') or car_name=='mrs_furious')" file="$(find control)/launch/control_fast_and_furious.launch" >
+  </include>
+
+  <include if="$(eval car_name=='dr_drift')" file="$(find control)/launch/control_dr_drift.launch" >
+  </include>
+
+</launch>

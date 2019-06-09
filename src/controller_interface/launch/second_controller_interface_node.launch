@@ -1,0 +1,35 @@
+<!-- KITcar launch script for controller_interface -->
+<!-- 
+This launch file is only for debug purpose, it can be used to connect a second Arduino to the NUC and read/write on
+it like with the first one. 
+This file starts a second instance of the controller_interface node with same functionality on different namespace but
+disables writing sensor outputs from Arduino to ipc shared memory.
+-->
+<launch>
+  <arg name="start_activated" default="true" /> <!--makes usage easier-->
+  <arg name="use_back_steering" default="false" />
+  <arg name="enable_runtime_analyzer" default="false" />
+  <group ns="controller_interface">
+    <node name="second_controller_interface" pkg="controller_interface" type="controller_interface" output="screen">
+      <rosparam file="$(find controller_interface)/param/second_controller_interface/default.yaml" command="load" ns="default" />
+      <rosparam file="$(find controller_interface)/param/second_controller_interface/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+      <rosparam file="$(find controller_interface)/param/second_controller_interface/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+      <rosparam file="$(find controller_interface)/param/second_controller_interface/parking_mode.yaml" command="load" ns="parking_mode" />
+      <param name="start_activated" value="$(arg start_activated)" />
+      <param name="use_back_steering" value="$(arg use_back_steering)" />
+      <param name="default/enable_runtime_analyzer" value="$(arg enable_runtime_analyzer)" />
+
+      <!-- remaps and parameters from before refactoring -->
+      <remap from="/controller_interface/second_controller_interface/blinker_command" to="/controller_interface/blinker_command" />
+      <remap from="/controller_interface/second_controller_interface/laser_command" to="/mission_control/mission_controller/laser_command" />
+      <remap from="/controller_interface/second_controller_interface/velocity_command" to="/control/longitudinal_controller/velocity_command" />
+      <remap from="/controller_interface/second_controller_interface/mission_mode" to="/second_mission_mode" />
+
+      <remap from="second_controller_interface/wheelbase" to="/default/car_specs/wheelbase" />
+      <remap from="second_controller_interface/mass" to="/default/car_specs/mass" />
+      <remap from="second_controller_interface/tire_radius" to="/default/car_specs/tire_radius" />
+      <remap from="second_controller_interface/track" to="/default/car_specs/track" />
+      <remap from="second_controller_interface/counts_per_revolution" to="/default/car_specs/counts_per_revolution" />
+    </node>
+  </group>
+</launch>

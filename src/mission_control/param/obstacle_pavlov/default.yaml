@@ -1,0 +1,50 @@
+# Default parameter of obstacle_pavlov
+blocking_entity_preemption_distance_threshold_in_m: 0.1
+safety_margin_crosswalk: 0.5
+safety_margin_road_closure: 0.9
+safety_margin_junction: 0.45
+max_stop_at_update_distance: 0.4
+approaching_unsure_observation_speed_in_m_per_s: 0.8
+junction_roi_right_min_x: 0.5
+junction_roi_right_min_y: -0.9
+junction_roi_right_max_x: 0.7
+junction_roi_right_max_y: -0.0
+junction_roi_center_min_x: 0
+junction_roi_center_min_y: -0.3
+junction_roi_center_max_x: 0.8
+junction_roi_center_max_y: 0.9
+look_at_region_add_width: 0.4
+look_at_region_add_height: 0.2
+turn_arrow_to_junction_distance_threshold: 0.5
+turn_arrow_to_junction_assumed_distance: 0.4
+turn_left_passed_thres_x: 0.0
+turn_left_passed_thres_y: 0.7
+turn_right_passed_thres_x: 0.0
+turn_right_passed_thres_y: 0.5
+crosswalk_passed_thres_x: -0.4
+no_passing_distance_to_obstacle: 3.0
+
+no_passing_finish_overtaking: 2.7 #determines how long the vehicle is considered as on the right lane (=2: vehicle is just considered as on the right lane if no wheel is left)
+no_passing_length_area_of_interest: 5.0
+
+speed_limit_reset_distance: {
+  with_10_kmh: 5,
+  with_20_kmh: 10,
+  with_30_kmh: 20,
+  with_40_kmh: 20,
+  with_50_kmh: 20,
+  with_60_kmh: 20,
+  with_70_kmh: 20,
+  with_80_kmh: 20,
+  with_90_kmh: 20
+}
+
+unidentified_object_lowest_velocity: 10.0 #lowest velocity if perception detect unidentified objects
+unidentified_object_distance_lowest_velocity: 6.5 #at this distance to unidentified object we drive with unidentified_object_lowest_velocity
+unidentified_object_velocity_factor: 0.5 #the higher unidentified_object_velocity_factor is the faster we drive if distance to unidentified object is high
+
+
+
+#!!!!!!!!!!!!!!!!!!!!!! change variable also in free_drive_pavlov/default.yaml !!!!!!!!!!!!!!!!!!
+enable_qr_code_detection: false
+#!!!!!!!!!!!!!!!!!!!!!! change variable also in free_drive_pavlov/default.yaml !!!!!!!!!!!!!!!!!!

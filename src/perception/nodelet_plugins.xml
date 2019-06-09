@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<library path="lib/libpreprocessing_nodelet">
+  <class name="perception/preprocessing" type="NodeletBase<PreprocessingNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    This node performs preprocessing steps on a raw camera image.
+  </description>
+  </class>
+</library>
+<library path="lib/liblane_detection_nodelet">
+ <class name="perception/lane_detection" type="NodeletBase<LaneDetectionNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    The lane detection nodelet performs lane detection.
+  </description>
+  </class>
+</library>
+<library path="lib/libroad_watcher_nodelet">
+  <class name="perception/road_watcher" type="NodeletBase<RoadWatcherNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Road Watcher
+  </description>
+  </class>
+</library>
+<library path="lib/libextrinsic_calibration_nodelet">
+  <class name="perception/extrinsic_calibration" type="NodeletBase<ExtrinsicCalibration>" base_class_type="nodelet::Nodelet">
+  <description>
+    Publishes extrinsic parameters
+  </description>
+  </class>
+</library>
+<library path="lib/libpixelwise_mask_generation_nodelet">
+  <class name="perception/pixelwise_mask_generation" type="NodeletBase<pixelwise_mask_generation::PixelwiseMaskGenerationNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Generates a pixelwise mask.
+  </description>
+  </class>
+</library>
+<library path="lib/libparkinglot_mapping_nodelet">
+  <class name="perception/parkinglot_mapping" type="NodeletBase<ParkinglotMappingNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    creates a map of the parking lot (ir + camera)
+  </description>
+  </class>
+</library>
+<library path="lib/libperpendicular_parking_nodelet">
+  <class name="perception/perpendicular_parking" type="NodeletBase<PerpendicularParkingNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Node for detection and localization of parking spots on the left part of the lane, that can be used for perpendicular parking
+  </description>
+  </class>
+</library>
+<library path="lib/libqr_code_detection_nodelet">
+  <class name="perception/qr_code_detection" type="NodeletBase<QrCodeDetectionNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Node to detect QR codes like the 'STOP' signal
+  </description>
+  </class>
+</library>
+<library path="lib/liblook_at_nodelet">
+  <class name="perception/look_at" type="NodeletBase<look_at::LookAtNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Node to look for specific road elements in specific areas, when demanded by the environmental model
+  </description>
+  </class>
+</library>

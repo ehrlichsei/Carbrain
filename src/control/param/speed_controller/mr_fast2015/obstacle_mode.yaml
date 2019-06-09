@@ -1,0 +1,10 @@
+# obstacle mode specific parameter of speed_controller
+
+p_speed: 1.0
+i_max: 0.8
+i_min: -2.0
+i_speed: 1.3
+d_speed: 0
+
+use_brake: false
+

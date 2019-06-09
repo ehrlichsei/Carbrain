@@ -1,0 +1,6 @@
+/**
+\mainpage The navigation package
+
+The navigation package provides the layer between the perception output and the control input.
+Its most important task is the path planning and collision avoidance.
+*/

@@ -1,0 +1,3 @@
+- builder: doxygen
+  name: car_specs
+  homepage: https://wiki.kitcar-team.de/doku.php?id=konzept_und_umsetzung:car_specs:start

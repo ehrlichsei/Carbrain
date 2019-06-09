@@ -1,0 +1,10 @@
+ArrowMarkings arrow_markings
+Crosswalks crosswalks
+Junctions junctions
+Obstacles obstacles
+RoadClosures road_closures
+SpeedLimitMarkings speed_limit_markings
+StartLines start_lines
+NoPassingZones no_passing_zones
+Unidentifieds unidentifieds
+

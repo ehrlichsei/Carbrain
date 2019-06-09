@@ -1,0 +1,2 @@
+current_mode: 1 #start free drive state machine
+number_of_park_attempts: 0 #set number of park attemts to zero to never park

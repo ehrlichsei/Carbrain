@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find common)/launch/test_nodelet_load.test" >
+    <arg name="target_launch_file" value="$(find navigation)/launch/path_preprocessing_node.launch" />
+    <arg name="test_name" value="path_preprocessing" />
+  </include>
+</launch>

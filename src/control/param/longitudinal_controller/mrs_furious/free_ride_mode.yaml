@@ -1,0 +1,10 @@
+# free ride mode specific parameter of high_level_controller
+
+# longitudinal control
+
+# curvature control
+v_min_cc: 0.6
+v_max_cc: 5
+a_krit: 2
+lookahead_cc_t: 0.04
+

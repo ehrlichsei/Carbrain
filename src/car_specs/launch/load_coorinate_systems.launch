@@ -1,0 +1,71 @@
+<!-- KITcar launch script for loading camera parameters to parameter server -->
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+
+  <include file="$(find car_specs)/launch/load_car_specs.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+  </include>
+
+  <rosparam file="$(find car_specs)/param/$(arg car_name)/static_coordinate_systems.yaml" command="load" ns="/default/tf_static" />
+
+  <node pkg="common" type="static_transform_publisher" name="vehicle_to_front_axle_broadcaster" respawn="true" respawn_delay="1" >
+    <remap from="~/x" to="/default/car_specs/wheelbase"/>
+    <param name="y" type="double" value="0.0" />
+    <param name="z" type="double" value="0.0" />
+    <param name="frame_id" type="string" value="vehicle" />
+    <param name="child_frame_id" type="string" value="front_axle" />
+    <param name="period" type="double" value="100" />
+    <param name="yaw" type="double" value="0.0" />
+    <param name="pitch" type="double" value="0.0" />
+    <param name="roll" type="double" value="0.0" />
+  </node>
+
+  <node pkg="common" type="static_transform_publisher" name="vehicle_to_ir_front_broadcaster" respawn="true" respawn_delay="1" >
+    <remap from="~/x" to="/default/tf_static/vehicle_to_ir_front/x"/>
+    <remap from="~/y" to="/default/tf_static/vehicle_to_ir_front/y"/>
+    <remap from="~/z" to="/default/tf_static/vehicle_to_ir_front/z"/>
+    <remap from="~/yaw" to="/default/tf_static/vehicle_to_ir_front/yaw"/>
+    <remap from="~/pitch" to="/default/tf_static/vehicle_to_ir_front/pitch"/>
+    <remap from="~/roll" to="/default/tf_static/vehicle_to_ir_front/roll"/>
+    <param name="frame_id" type="string" value="vehicle" />
+    <param name="child_frame_id" type="string" value="ir_front" />
+    <param name="period" type="double" value="100" />
+  </node>
+
+  <node pkg="common" type="static_transform_publisher" name="vehicle_to_ir_back_broadcaster" respawn="true" respawn_delay="1" >
+    <remap from="~/x" to="/default/tf_static/vehicle_to_ir_back/x"/>
+    <remap from="~/y" to="/default/tf_static/vehicle_to_ir_back/y"/>
+    <remap from="~/z" to="/default/tf_static/vehicle_to_ir_back/z"/>
+    <remap from="~/yaw" to="/default/tf_static/vehicle_to_ir_back/yaw"/>
+    <remap from="~/pitch" to="/default/tf_static/vehicle_to_ir_back/pitch"/>
+    <remap from="~/roll" to="/default/tf_static/vehicle_to_ir_back/roll"/>
+    <param name="frame_id" type="string" value="vehicle" />
+    <param name="child_frame_id" type="string" value="ir_back" />
+    <param name="period" type="double" value="100" />
+  </node>
+
+  <node pkg="common" type="static_transform_publisher" name="vehicle_to_ir_middle_broadcaster" respawn="true" respawn_delay="1" >
+    <remap from="~/x" to="/default/tf_static/vehicle_to_ir_middle/x"/>
+    <remap from="~/y" to="/default/tf_static/vehicle_to_ir_middle/y"/>
+    <remap from="~/z" to="/default/tf_static/vehicle_to_ir_middle/z"/>
+    <remap from="~/yaw" to="/default/tf_static/vehicle_to_ir_middle/yaw"/>
+    <remap from="~/pitch" to="/default/tf_static/vehicle_to_ir_middle/pitch"/>
+    <remap from="~/roll" to="/default/tf_static/vehicle_to_ir_middle/roll"/>
+    <param name="frame_id" type="string" value="vehicle" />
+    <param name="child_frame_id" type="string" value="ir_middle" />
+    <param name="period" type="double" value="100" />
+  </node>
+
+  <node pkg="common" type="static_transform_publisher" name="vehicle_to_ir_ahead_broadcaster" respawn="true" respawn_delay="1" >
+    <remap from="~/x" to="/default/tf_static/vehicle_to_ir_ahead/x"/>
+    <remap from="~/y" to="/default/tf_static/vehicle_to_ir_ahead/y"/>
+    <remap from="~/z" to="/default/tf_static/vehicle_to_ir_ahead/z"/>
+    <remap from="~/yaw" to="/default/tf_static/vehicle_to_ir_ahead/yaw"/>
+    <remap from="~/pitch" to="/default/tf_static/vehicle_to_ir_ahead/pitch"/>
+    <remap from="~/roll" to="/default/tf_static/vehicle_to_ir_ahead/roll"/>
+    <param name="frame_id" type="string" value="vehicle" />
+    <param name="child_frame_id" type="string" value="ir_ahead" />
+    <param name="period" type="double" value="100" />
+  </node>
+</launch>
+

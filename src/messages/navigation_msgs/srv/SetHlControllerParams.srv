@@ -1,0 +1,8 @@
+float64 F_krit
+float64 psi_k
+float64 dist_k
+float64 lookahead_delta
+float64 lookahead_v
+float64 acker_k
+float64 v_max
+---

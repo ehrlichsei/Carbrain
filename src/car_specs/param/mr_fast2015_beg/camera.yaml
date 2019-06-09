@@ -1,0 +1,19 @@
+focal_length_x: 341.292060
+focal_length_y: 339.741423
+optical_center_x: 639.011228
+optical_center_y: 41.811374
+
+# Coordsys in back axle (vehicle coordsys)                          
+r11: 0.046918
+r12: -0.998638
+r13: 0.022799
+r21: -0.176917
+r22: -0.030771
+r23: 0.983745
+r31: 0.983107
+r32: 0.042122
+r33: -0.178120
+t1: 1.2004
+t2: 269.5660
+t3: -5.6488
+

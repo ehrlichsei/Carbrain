@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find perception)/launch/tests/junction.test" >
+    <arg name="rosbag" value="junction_stop_right" />
+    <arg name="obstacle" value="junction_stop_right.yaml" />
+    <arg name="name" value="junction_stop_right" />
+    <arg name="car_name" value="dr_drift" />
+  </include>
+</launch>

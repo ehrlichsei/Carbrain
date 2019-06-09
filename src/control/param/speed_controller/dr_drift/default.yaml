@@ -1,0 +1,20 @@
+# Default parameter of speed_controller
+
+p_speed: 12.0
+i_speed: 10.0
+d_speed: 0
+
+i_min: -0.8
+i_max: 0.8
+use_antiwindup: true
+
+dead_zone_size: 0.01
+dead_zone_activation_speed_set_point_threshold: 0.0
+
+max_engine_power: 15.0
+
+feed_forward_a: 0
+feed_forward_b: 0 # 0.1223
+feed_forward_c: 0 # -0.0000091860
+
+velocity_command_timeout: 0.04

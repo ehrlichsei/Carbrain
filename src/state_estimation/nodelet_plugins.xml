@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<library path="lib/libstate_estimation_nodelet">
+  <class name="state_estimation/state_estimation" type="NodeletBase<StateEstimationNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Filters the incoming sensor data with a kalman filter to estimate the current state of the car.
+  </description>
+  </class>
+</library>

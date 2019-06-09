@@ -1,0 +1,14 @@
+<!-- KITcar launch script for diagnostic_monitor -->
+<launch>
+  <arg name="start_activated" default="false" />
+  <node name="diagnostic_monitor" ns="monitoring" pkg="monitoring" type="diagnostic_monitor" output="screen">
+   <rosparam file="$(find monitoring)/param/diagnostic_monitor/default.yaml" command="load" ns="default" />
+   <rosparam file="$(find monitoring)/param/diagnostic_monitor/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+   <rosparam file="$(find monitoring)/param/diagnostic_monitor/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+   <rosparam file="$(find monitoring)/param/diagnostic_monitor/parking_mode.yaml" command="load" ns="parking_mode" />
+   <param name="start_activated" value="$(arg start_activated)" />
+   <remap from="/monitoring/diagnostic_monitor/diagnostics" to="/diagnostics" />
+   <remap from="/monitoring/diagnostic_monitor/emergency_stop" to="/control/speed_controller/emergency_stop" />
+   <remap from="/monitoring/diagnostic_monitor/debug_light" to="/controller_interface/controller_interface/debug_light" />
+  </node>
+</launch>

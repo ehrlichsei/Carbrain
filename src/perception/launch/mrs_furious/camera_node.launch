@@ -1,0 +1,24 @@
+<!-- KITcar launch script for camera1394 node/nodelet (used for Firefly MV) -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="camera1394" />
+  <arg unless="$(arg use_nodelet)" name="type" value="camera1394_node" />
+  <arg unless="$(arg use_nodelet)" name="args" value="_video_mode:=format7_mode0" />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load camera1394/driver $(arg nodelet_manager) _video_mode:=format7_mode0" />
+
+  <node name="camera" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+    <remap from="camera/image_raw" to="/camera/image_raw" /> <!-- images shall always be published at this topic! -->
+    <param name="frame_rate" value="1.875" />
+    <param name="auto_white_balance" value="3" />
+    <param name="white_balance_RV" value="370" />
+    <param name="white_balance_BU" value="800" />
+    <param name="use_ros_time" value="true" />
+  </node>
+</launch>

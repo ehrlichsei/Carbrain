@@ -1,0 +1,3 @@
+- builder: doxygen
+  name: navigation_msgs
+  homepage: ../navigation_msgs/index.html

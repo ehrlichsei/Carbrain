@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find perception)/launch/tests/look_at.test" >
+    <arg name="rosbag" value="pedestrian_look_at_right" />
+    <arg name="obstacle" value="pedestrian_look_at_right.yaml" />
+    <arg name="car_name"  value="dr_drift" />
+    <arg name="action_name" value="pedestrians" />
+  </include>
+</launch>

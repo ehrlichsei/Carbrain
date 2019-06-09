@@ -1,0 +1,26 @@
+# Default parameter of speed_controller
+
+p_speed: 0.5
+i_speed: 1
+d_speed: 0
+
+brake_output_scaling: 2.0
+
+braking_threshold: 0.1
+
+use_brake: false
+
+i_min: -1
+i_max: 1
+use_antiwindup: true
+
+dead_zone_size: 0.01
+dead_zone_activation_speed_set_point_threshold: 0.0
+
+feed_forward_a: 0
+feed_forward_b: 0 # 0.1223
+feed_forward_c: 0 # -0.0000091860
+
+max_engine_power: 1.0
+
+velocity_command_timeout: 0.04

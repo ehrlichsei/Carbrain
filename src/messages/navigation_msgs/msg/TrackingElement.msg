@@ -1,0 +1,11 @@
+geometry_msgs/Point[] base_hull_polygon
+float32 crosswalk_probability
+float32 road_closure_probability
+float32 arrow_marking_probability
+float32 speed_limit_probability
+float32 junction_probability
+float32 obstacle_probability
+float32 start_line_probability
+float32 unidentified_probability
+int32 id
+geometry_msgs/Pose pose

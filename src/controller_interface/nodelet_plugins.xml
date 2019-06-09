@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<library path="lib/libcontroller_interface_nodelet">
+  <class name="controller_interface/controller_interface" type="NodeletBase<ControllerInterfaceNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    manages the communication with Arduino
+  </description>
+  </class>
+</library>

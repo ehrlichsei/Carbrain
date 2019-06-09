@@ -1,0 +1,46 @@
+<!-- KITcar launch script for perception_debug -->
+<launch>
+  <arg name="car_name"/>
+  <arg name="rosbag"/>
+  <arg name="expected_images" />
+  <arg name="name" default="$(arg rosbag)"/>
+  <arg name="no_passing_line_existent" />
+  <arg name="island_existent" default="false"/>
+  <arg name="epsilon_set_image" />
+  <arg name="timeout" default="6"/>
+  <arg name="start_in_startbox_mode" default="true"/>
+  <arg name="image_to_check" default="0"/>
+  <arg name="build_folder" value="$(env KITCAR_REPO_PATH)/kitcar-ros/KITcar_brain/build"/>
+ 
+  <include file="$(find perception)/launch/preprocessing_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="input_queue_size" value="10" />
+    <arg name="output_queue_size" value="10" />
+  </include>
+
+  <include file="$(find perception)/launch/lane_detection_node.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="input_queue_size" value="10" />
+    <arg name="output_queue_size" value="10" />
+    <arg name="start_in_startbox_mode" value="$(arg start_in_startbox_mode)"/>
+    <arg name="camera_parameters_prefix" value="$(arg build_folder)/perception/test/test_lane_detection/$(arg rosbag)" />
+  </include>
+
+  <node pkg="common" type="rosbag_nodebase.py" name="rosbag_nodebase" output="screen" ns="common"
+	  args="play -q -d 1 -r 0.1 $(arg build_folder)/perception/test/test_lane_detection/$(arg rosbag)/$(arg rosbag).bag"/>
+
+  <test test-name="test_lane_detection_$(arg name)" pkg="perception" type="test_lane_detection">
+    <remap from="test_lane_detection_$(arg name)/labled_image" to="/labled_image" />
+    <remap from="test_lane_detection_$(arg name)/road_lane_right" to="/perception/lane_detection/road_lane_right" />
+    <remap from="test_lane_detection_$(arg name)/road_lane_middle" to="/perception/lane_detection/road_lane_middle" />
+    <remap from="test_lane_detection_$(arg name)/road_lane_left" to="/perception/lane_detection/road_lane_left" />
+    <remap from="test_lane_detection_$(arg name)/road_lane_middle_no_passing" to="/perception/lane_detection/road_lane_middle_no_passing" />
+
+    <param name="timeout" value="$(arg timeout)" />
+    <param name="expected_images" value="$(arg expected_images)" />
+    <param name="no_passing_line_existent" value="$(arg no_passing_line_existent)" />
+    <param name="island_existent" value="$(arg island_existent)" />
+    <param name="epsilon_set_image" value="$(arg epsilon_set_image)" />
+    <param name="image_to_check" value="$(arg image_to_check)" />
+  </test>
+</launch>

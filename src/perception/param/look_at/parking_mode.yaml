@@ -1,0 +1,19 @@
+# parking mode specific parameter of road_watcher
+all_classifiers: False
+
+start_line_classifier: {
+  min_score_ratio: 2.0,
+  max_angle_delta: 0.2,
+  harris_corner_threshold: 150,
+  mean_step_size: 0.044,
+  step_det_use_abs: True,
+  harris_block_size: 9,
+  sobel_window: 3,
+  harris_k: 0,
+  minimal_harris_max: 0.0005,
+  min_nr_points: 7,
+  line_shift: 0.15,
+  step_det_ref_func_length: 3,
+  step_det_thld: 10,
+  fixed_score_start_line: 0.8,
+}

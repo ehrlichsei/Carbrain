@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<library path="lib/libpath_planning_nodelet">
+  <class name="navigation/path_planning" type="NodeletBase<PathPlanningNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    The PathPlanningNode generates a safe target path polynomial from raw target path points and collision prone obstacles
+  </description>
+  </class>
+</library>
+<library path="lib/libpath_preprocessing_nodelet">
+  <class name="navigation/path_preprocessing" type="NodeletBase<PathPreprocessingNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    The PathPreprocessingNode takes detected road lane points and generates the raw target path (target path points without collision avoidance).
+  </description>
+  </class>
+</library>
+<library path="lib/libcollision_detection_nodelet">
+  <class name="navigation/collision_detection" type="NodeletBase<CollisionDetectionNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    detects obstacles that collide with lane points
+  </description>
+  </class>
+</library>
+<library path="lib/liblocalization_nodelet">
+  <class name="navigation/localization" type="NodeletBase<LocalizationNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Self-localization via integration of state_estimation data
+  </description>
+  </class>
+</library>
+<library path="lib/libblinker_nodelet">
+  <class name="navigation/blinker" type="NodeletBase<BlinkerNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Takes care of activating the blinker before switching lanes
+  </description>
+  </class>
+</library>
+<library path="lib/libparkinglot_aligner_nodelet">
+  <class name="navigation/parkinglot_aligner" type="NodeletBase<ParkinglotAlignerNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    ParkinglotAligner
+  </description>
+  </class>
+</library>
+<library path="lib/libroad_closure_tracking_nodelet">
+  <class name="navigation/road_closure_tracking" type="NodeletBase<RoadClosureTrackingNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Description
+  </description>
+  </class>
+</library>
+<library path="lib/libenvironmental_model_nodelet">
+  <class name="navigation/environmental_model" type="NodeletBase<EnvironmentalModelNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Description
+  </description>
+  </class>
+</library>

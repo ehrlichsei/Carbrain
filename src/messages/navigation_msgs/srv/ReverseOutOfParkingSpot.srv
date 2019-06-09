@@ -1,0 +1,3 @@
+nav_msgs/Path path_reverse_out_of_parking_spot
+bool enable
+---

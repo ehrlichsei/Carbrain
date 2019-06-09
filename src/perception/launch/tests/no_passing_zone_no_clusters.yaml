@@ -1,0 +1,6 @@
+expected_x_start: 0.71
+expected_y_start: 0.17
+expected_x_end: 1.27
+expected_y_end: 0.16
+expected_yaw: -0.01
+expect_np_zone: true

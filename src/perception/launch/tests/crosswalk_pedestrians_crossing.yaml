@@ -1,0 +1,5 @@
+expected_x_pose: 0.75
+expected_y_pose: 0.06
+expected_yaw:  0
+pedestrian_state:  0
+nr_of_frames: 1

@@ -1,0 +1,14 @@
+# Default parameter of preprocessing
+binarisation: {
+  mode: 3,
+  sigma: 1.0,
+  blocksize: 31,
+  c: 0
+}
+
+median_blur: {
+  median_blur_size: 3 #has to be odd, zero to deactivate median blur
+}
+
+input_queue_size: 1 #might be overwritten by launch file
+output_queue_size: 1 #might be overwritten by launch file

@@ -1,0 +1,2 @@
+# Default parameter of blinker
+vehicle_width_subtraction: 0.0 #this value determine how early the blinker node considers the car as on the middle_lane

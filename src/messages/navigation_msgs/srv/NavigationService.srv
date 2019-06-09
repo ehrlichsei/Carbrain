@@ -1,0 +1,5 @@
+float64 path_offset
+bool pathplanner_active
+bool hlcontroller_active
+float64 v_max
+---

@@ -1,0 +1,5 @@
+<launch>
+  <node ns="monitoring" pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
+    <rosparam command="load" file="$(find monitoring)/res/analyzers.yaml" />
+  </node>
+</launch>

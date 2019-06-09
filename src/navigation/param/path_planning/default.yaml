@@ -1,0 +1,18 @@
+# Default parameter of path_planning
+lsq_center_weight: 0.0
+lsq_border_residual_at_border: 6.0
+lsq_border_start_distance: 0.05
+lsq_prefered_point_weight: 0.0
+lsq_distance_weight: 100.0
+lsq_angle_weight: 0.0
+lsq_triangle_area_weight: 30
+lsq_curvature_weight: 0.0
+lsq_endpoint_angle_weight: 150.0
+lsq_center_value: 0.5
+lsq_min_gate_width: 0.005
+max_gates_initalization: 10
+number_free_gates_tracking_collision: 4
+ceres_max_num_iterations: 10
+ceres_max_solver_time: 0.01
+
+max_allowed_processing_time: 3000 #us

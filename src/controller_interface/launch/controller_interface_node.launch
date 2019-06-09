@@ -1,0 +1,34 @@
+<!-- KITcar launch script for controller_interface -->
+<launch>
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="start_activated" default="false" />
+  <arg name="enable_runtime_analyzer" default="false" />
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="controller_interface" />
+  <arg unless="$(arg use_nodelet)" name="type" value="controller_interface" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load controller_interface/controller_interface $(arg nodelet_manager)" />
+
+  <node name="controller_interface" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen" ns="controller_interface">
+      <rosparam file="$(find controller_interface)/param/controller_interface/$(arg car_name)/default.yaml" command="load" ns="default" />
+      <rosparam file="$(find controller_interface)/param/controller_interface/$(arg car_name)/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+      <rosparam file="$(find controller_interface)/param/controller_interface/$(arg car_name)/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+      <rosparam file="$(find controller_interface)/param/controller_interface/$(arg car_name)/parking_mode.yaml" command="load" ns="parking_mode" />
+      <remap from="controller_interface/use_back_steering" to = "controller_interface/default/use_back_steering" />
+      <param name="start_activated" value="$(arg start_activated)" />
+      <param name="default/enable_runtime_analyzer" value="$(arg enable_runtime_analyzer)" />
+
+      <!-- remaps and parameters from before refactoring -->
+      <remap from="/controller_interface/controller_interface/blinker_command" to="/controller_interface/blinker_command" />
+      <remap from="/controller_interface/controller_interface/velocity_command" to="/control/longitudinal_controller/velocity_command" />
+      <remap from="/controller_interface/controller_interface/mission_mode" to="/mission_mode" />
+      <remap from="/controller_interface/controller_interface/snapshot_trigger" to="/snapshot_trigger" />
+  </node>
+</launch>

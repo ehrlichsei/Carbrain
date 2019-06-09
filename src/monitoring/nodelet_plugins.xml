@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<library path="lib/libsystem_monitor_nodelet">
+  <class name="monitoring/system_monitor" type="NodeletBase<SystemMonitorNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Monitor checking system health and displaying results/warnings
+  </description>
+  </class>
+</library>
+<library path="lib/libfitness_monitor_nodelet">
+  <class name="monitoring/fitness_monitor" type="NodeletBase<FitnessMonitorNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    monitores min/max/avg. velocity etc.
+  </description>
+  </class>
+</library>
+
+<library path="lib/libdiagnostic_monitor_nodelet">
+  <class name="monitoring/diagnostic_monitor" type="NodeletBase<DiagnosticMonitorNode>" base_class_type="nodelet::Nodelet">
+  <description>
+    Emits debug messages via led, sound etc.
+  </description>
+  </class>
+</library>

@@ -1,0 +1,50 @@
+<!-- KITcar launch script for road_watcher -->
+<launch>
+  <arg name="start_activated" default="false" />
+  <arg name="use_nodelet" default="false" />
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  <arg name="debug_mode" default="false" />
+  <arg name="camera_parameters_prefix" default=" " />
+  <arg name="all_classifiers_default" default=" " doc="if set overrides all_classifiers default parameter" />
+
+  <env if="$(arg debug_mode)" name="ROSCONSOLE_CONFIG_FILE" value="$(find perception)/rosconsole/perception.conf"/>
+
+  <include file="$(find car_specs)/launch/load_camera_parameters.launch" >
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg if="$(eval arg('camera_parameters_prefix') != ' ')" name="prefix" value="$(arg camera_parameters_prefix)" />
+  </include>
+
+  <!-- if start as a node -->
+  <arg unless="$(arg use_nodelet)" name="pkg" value="perception" />
+  <arg unless="$(arg use_nodelet)" name="type" value="road_watcher" />
+  <arg unless="$(arg use_nodelet)" name="args" value=" " />
+  <arg unless="$(arg use_nodelet)" name="launch_prefix" default=" " />
+
+  <!-- if start as a nodelet -->
+  <arg if="$(arg use_nodelet)" name="nodelet_manager" />
+  <arg if="$(arg use_nodelet)" name="pkg" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="type" value="nodelet" />
+  <arg if="$(arg use_nodelet)" name="args" value="load perception/road_watcher $(arg nodelet_manager)" />
+  <arg if="$(arg use_nodelet)" name="launch_prefix" value="" />
+
+  <group ns="perception"> 
+    <!-- loading package parameter -->
+    <rosparam file="$(find perception)/param/$(arg car_name)/ego_vehicle.yaml" command="load" ns="default/ego_vehicle" />
+
+    <node launch-prefix="$(arg launch_prefix)" name="road_watcher" pkg="$(arg pkg)" type="$(arg type)" args="$(arg args)" output="screen">
+      <rosparam file="$(find perception)/param/road_watcher/default.yaml" command="load" ns="default" />
+      <rosparam file="$(find perception)/param/road_watcher/free_ride_mode.yaml" command="load" ns="free_ride_mode" />
+      <rosparam file="$(find perception)/param/road_watcher/obstacle_mode.yaml" command="load" ns="obstacle_mode" />
+      <rosparam file="$(find perception)/param/road_watcher/parking_mode.yaml" command="load" ns="parking_mode" />
+      <param name="start_activated" value="$(arg start_activated)" />
+      <param name="debug_mode" value="$(arg debug_mode)" />
+      <param if="$(eval arg('all_classifiers_default') != ' ')" name="default/all_classifiers" value="$(arg all_classifiers_default)" />
+
+      <remap from="road_watcher/image_raw" to="/camera/image_raw" />
+      <remap from="road_watcher/road_lane_right" to="/perception/lane_detection/road_lane_right" />
+      <remap from="road_watcher/road_lane_middle" to="/perception/lane_detection/road_lane_middle" />
+      <remap from="road_watcher/road_lane_left" to="/perception/lane_detection/road_lane_left" />
+      <remap from="road_watcher/road_lane_middle_no_passing" to="/perception/lane_detection/road_lane_middle_no_passing" />
+    </node>
+  </group>
+</launch>

@@ -1,0 +1,40 @@
+assume_connected_mask: true
+
+segmentation: {
+ max_color_diff: {
+ 
+        lower_diff: 1,
+        upper_diff: 1
+ },
+ min_segment_size: 480,
+ number_of_segmentation_attempts: 8,
+ 
+ starting_point: {
+  random: {
+    max_y: 28
+  }
+ }
+}
+
+old_mask_names: {
+        old_file_name: "oldMaskFile_",
+        old_masks_folder_name: "oldMasks"
+}
+
+automatic_mask_gen: {
+        bilateral_filter_size: 9,
+        bilateral_filter_max_sigma: 200,
+        number_of_pictures: 10,
+        auto_save: true,
+        dilation_size: 7,
+        segmentation_target_size: 0.4,
+        median_blur_segmentation_artifact_size_threshold: 0.1,
+        median_blur_max_kernel_size: 47,
+        closing_max_number_of_segments: 4,
+        closing_max_size: 88
+}
+
+max_archive_directory_size: {
+        warning_size: 40,
+        error_size: 80
+}

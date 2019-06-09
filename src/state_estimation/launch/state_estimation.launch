@@ -1,0 +1,8 @@
+<launch>
+  <arg name="car_name" default="$(env CAR_NAME)" />
+  
+  <include file="$(find state_estimation)/launch/state_estimation_node.launch">
+    <arg name="car_name" value="$(arg car_name)" />
+    <arg name="kalman_filter_name" value="linear_2ws" />
+  </include>
+</launch>
